@@ -28,7 +28,14 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-
+                        <li class="nav-item dropdown mt-2 ml-2">
+                            <a href="#" class="dropdown-toggle text-dark" data-toggle="dropdown" role="button" aria-expanded="false">Admin<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a class="text-dark ml-5" asp-area="Admin" asp-controller="Orders" asp-action="Index">Orders</a></li>
+                                <li><a class="text-dark ml-5" asp-area="Admin" asp-controller="Fees" asp-action="Index">Fees</a></li>
+                                <li><a class="text-dark ml-5" asp-area="Admin" asp-controller="Supplies" asp-action="Index">Supplies</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>
