@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace InterScOM.Areas.Admin.Models
 {
-    public class Supplies
+    public class Fee
     {
         [Key]
         public int Id { get; set; }
-        public string Itemname { get; set; }
 
-        public string ItemClass { get; set; }
+        public string ParentName { get; set; }
 
-        public int ItemQuantity { get; set; }
+        public string FeeStatus { get; set; }
+
     }
 }
