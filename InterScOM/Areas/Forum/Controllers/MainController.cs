@@ -36,11 +36,16 @@ namespace InterScOM.Areas.Forum.Controllers
 
             var query = await _context.Queries
                 .FirstOrDefaultAsync(m => m.Id == id);
+            var answers = await _context.Answers.ToListAsync();
+            foreach (var answer in answers)
+            {
+                if (answer.QueryId == query.Id) 
+                    query.Answers.Add(answer);
+            }
             if (query == null)
             {
                 return NotFound();
             }
-
             return View(query);
         }
 
@@ -68,9 +73,6 @@ namespace InterScOM.Areas.Forum.Controllers
             return View(query);
         }
 
-        private bool QueryExists(int id)
-        {
-            return _context.Queries.Any(e => e.Id == id);
-        }
+
     }
 }

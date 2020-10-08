@@ -16,9 +16,36 @@
         <div class="card-body">
             <p class="card-text">@Model.Question</p>
         </div>
+        <div class="card-footer">
+            <label>@Model.UpVotes</label>
+            <button class="btn btn-success"> 👍 </button>
+            <label>@Model.DownVotes</label>
+            <button class="btn btn-danger"> 👎 </button>
+        </div>
     </div>
     <hr />
     <h4>Answers</h4>
     <hr />
+    <ul style="list-style-type:none;">
+        @foreach (var answer in Model.Answers)
+        {
+            <li  style="padding: 10px">
+                <div class="card">
+                    <div class="card-header">
+                        UserName : @Html.DisplayFor(modelItem => answer.UserName)
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">@Html.DisplayFor(modelItem => answer.ThreadAnswer)</p>
+                    </div>
+                    <div class="card-footer">
+                        <label>@Html.DisplayFor(modelItem => answer.UpVotes)</label>
+                        <button class="btn btn-success"> 👍 </button>
+                        <label>@Html.DisplayFor(modelItem => answer.DownVotes)</label>
+                        <button class="btn btn-danger"> 👎 </button>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
 </div>
 
