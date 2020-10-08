@@ -36,13 +36,20 @@ namespace InterScOM.Areas.Forum.Controllers
 
             var query = await _context.Queries
                 .FirstOrDefaultAsync(m => m.Id == id);
+            var answers = await _context.Answers.ToListAsync();
+            foreach (var answer in answers)
+            {
+                if (answer.QueryId == query.Id) 
+                    query.Answers.Add(answer);
+            }
             if (query == null)
             {
                 return NotFound();
             }
-
             return View(query);
         }
+
+       
 
         // GET: Forum/Main/Create
         public IActionResult Create()
@@ -55,7 +62,7 @@ namespace InterScOM.Areas.Forum.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserName,Question,UpVotes,DownVotes")] Query query)
+        public async Task<IActionResult> Create([Bind("Id,Topic,UserName,Question,UpVotes,DownVotes")] Query query)
         {
             if (ModelState.IsValid)
             {
@@ -66,89 +73,6 @@ namespace InterScOM.Areas.Forum.Controllers
             return View(query);
         }
 
-        // GET: Forum/Main/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var query = await _context.Queries.FindAsync(id);
-            if (query == null)
-            {
-                return NotFound();
-            }
-            return View(query);
-        }
-
-        // POST: Forum/Main/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserName,Question,UpVotes,DownVotes")] Query query)
-        {
-            if (id != query.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(query);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!QueryExists(query.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(query);
-        }
-
-        // GET: Forum/Main/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var query = await _context.Queries
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (query == null)
-            {
-                return NotFound();
-            }
-
-            return View(query);
-        }
-
-        // POST: Forum/Main/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var query = await _context.Queries.FindAsync(id);
-            _context.Queries.Remove(query);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool QueryExists(int id)
-        {
-            return _context.Queries.Any(e => e.Id == id);
-        }
     }
 }

@@ -1,48 +1,51 @@
 ﻿@model InterScOM.Areas.Forum.Models.Query
 
+
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
-
 <div>
-    <h4>Query</h4>
+    <div style="padding-bottom: 15px">
+        <a class="btn btn-dark text-white-50" asp-action="Index">Back to List</a>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            Topic : @Model.Topic
+        </div>
+        <div class="card-body">
+            <p class="card-text">@Model.Question</p>
+        </div>
+        <div class="card-footer">
+            <label>@Model.UpVotes</label>
+            <button class="btn btn-success"> 👍 </button>
+            <label>@Model.DownVotes</label>
+            <button class="btn btn-danger"> 👎 </button>
+        </div>
+    </div>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Question)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Question)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Topic)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Topic)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.UpVotes)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UpVotes)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.DownVotes)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.DownVotes)
-        </dd>
-    </dl>
+    <h4>Answers</h4>
+    <hr />
+    <ul style="list-style-type:none;">
+        @foreach (var answer in Model.Answers)
+        {
+            <li  style="padding: 10px">
+                <div class="card">
+                    <div class="card-header">
+                        UserName : @Html.DisplayFor(modelItem => answer.UserName)
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">@Html.DisplayFor(modelItem => answer.ThreadAnswer)</p>
+                    </div>
+                    <div class="card-footer">
+                        <label>@Html.DisplayFor(modelItem => answer.UpVotes)</label>
+                        <button class="btn btn-success"> 👍 </button>
+                        <label>@Html.DisplayFor(modelItem => answer.DownVotes)</label>
+                        <button class="btn btn-danger"> 👎 </button>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
