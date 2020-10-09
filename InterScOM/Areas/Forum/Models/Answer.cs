@@ -16,5 +16,8 @@ namespace InterScOM.Areas.Forum.Models
 
         public string ThreadAnswer { get; set; }
 
+        public int UpVotes { get; set; }
+
+        public int DownVotes { get; set; }
     }
 }
