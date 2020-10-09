@@ -4,14 +4,16 @@ using InterScOM.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace InterScOM.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201009202646_addvendoridtofees")]
+    partial class addvendoridtofees
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,24 +63,6 @@ namespace InterScOM.Migrations
                     b.ToTable("Supplies");
                 });
 
-            modelBuilder.Entity("InterScOM.Areas.Admin.Models.Vendor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Ordersplaced")
-                        .HasColumnType("int");
-
-                    b.Property<string>("VendorName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Vendor");
-                });
-
             modelBuilder.Entity("InterScOM.Areas.Admin.Models.VendorOrders", b =>
                 {
                     b.Property<int>("Id")
@@ -125,11 +109,17 @@ namespace InterScOM.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("DownVotes")
+                        .HasColumnType("int");
+
                     b.Property<int>("QueryId")
                         .HasColumnType("int");
 
                     b.Property<string>("ThreadAnswer")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UpVotes")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
