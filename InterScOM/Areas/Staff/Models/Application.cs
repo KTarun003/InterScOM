@@ -34,6 +34,9 @@ namespace InterScOM.Areas.Staff.Models
         [Required]
         public int InternetRating { get; set; }
 
+        [DataType("Date")]
+        public DateTime ApplicationDate { get; set; }
+
         public string Status { get; set; }
     }
 }

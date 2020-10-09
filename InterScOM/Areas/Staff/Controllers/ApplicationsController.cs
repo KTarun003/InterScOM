@@ -20,6 +20,31 @@ namespace InterScOM.Areas.Staff.Controllers
             _context = context;
         }
 
+        public async Task<IActionResult> Dashboard()
+        {
+            var applications =  await _context.Application.ToListAsync();
+            Dashboard dashboard = new Dashboard
+            {
+                Applications = applications.Count()
+            };
+            foreach (var application in applications)
+            {
+                if (application.Status.Equals("Accepted"))
+                {
+                    dashboard.Accepted++;
+                }
+                else if(application.Status.Equals("Rejected"))
+                {
+                    dashboard.Rejected++;
+                }
+                else if (application.Status.Equals("Pending") && (dashboard.PendingApplications.Count <=5))
+                {
+                    dashboard.PendingApplications.Add(application);
+                }
+            }
+            return View(dashboard);
+        }
+
         // GET: Staff/Applications
         public async Task<IActionResult> Index()
         {

@@ -1,0 +1,111 @@
+﻿@model InterScOM.Areas.Staff.Models.Dashboard
+@{
+    ViewData["Title"] = "Dashoard";
+    int i = 0, j = 0;
+}
+
+<div class="container-fluid">
+
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <h3>
+                Staff Dashboard
+            </h3>
+        </div>
+    </div>
+
+    <br />
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <h5 class="card-header">
+                    Total No Of Applications
+                </h5>
+                <div class="card-body">
+                    <p class="card-text">
+                        @Model.Applications
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <h5 class="card-header">
+                    Total Accepted Applications
+                </h5>
+                <div class="card-body">
+                    <p class="card-text">
+                        @Model.Accepted
+                    </p>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-dark">
+                <h5 class="card-header">
+                    Total Rejected Applications
+                </h5>
+                <div class="card-body">
+                    <p class="card-text">
+                        @Model.Rejected
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col-sm-12 ">
+            <div class="card text-dark">
+                <h5 class="card-header">
+                    Pending Applications
+                </h5>
+                <div class="card-body">
+                    <table class="table table-borderless " style=" border-collapse: separate;  border-spacing: 0 1em;">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Application Date
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-dark">
+
+                            @foreach (var application in @Model.PendingApplications)
+                            {
+                                <tr>
+                                    <td>@application.Name</td>
+                                    <td>@application.ApplicationDate</td>
+                                    <td class="badge badge-warning">@application.Status</td>
+                                    <td>
+                                        <a class="btn btn-success btn-sm" asp-controller="Applications" asp-action="Edit" asp-route-id="@application.Id">Approve</a>
+                                        <a class="btn btn-danger btn-sm" asp-controller="Applications" asp-action="Edit" asp-route-id="@application.Id">Reject</a>
+                                    </td>
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+
+        </div>
+        
+    </div>
+</div>
+
+
+
