@@ -16,19 +16,7 @@
                 @Html.DisplayNameFor(model => model.FathersName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MothersName)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Dob)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Percentage)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AnnualIncome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InternetRating)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Status)
@@ -46,27 +34,14 @@
                 @Html.DisplayFor(modelItem => item.FathersName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MothersName)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Dob)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Percentage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AnnualIncome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InternetRating)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a>
             </td>
         </tr>
 }
