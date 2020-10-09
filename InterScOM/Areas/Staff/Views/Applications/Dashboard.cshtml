@@ -1,17 +1,20 @@
 ﻿@model InterScOM.Areas.Staff.Models.Dashboard
 @{
     ViewData["Title"] = "Dashoard";
-    int i = 0, j = 0;
 }
 
 <div class="container-fluid">
 
     <br />
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8">
             <h3>
                 Staff Dashboard
             </h3>
+        </div>
+        <div class="col-md-4">
+            <a class="btn btn-primary" asp-action="Index">View All Applications</a>
+            <a class="btn btn-success" asp-action="Create">+ New Application</a>
         </div>
     </div>
 
@@ -82,15 +85,15 @@
                         </thead>
                         <tbody class="text-dark">
 
-                            @foreach (var application in @Model.PendingApplications)
+                            @foreach (var application in Model.PendingApplications)
                             {
                                 <tr>
                                     <td>@application.Name</td>
                                     <td>@application.ApplicationDate</td>
                                     <td class="badge badge-warning">@application.Status</td>
                                     <td>
-                                        <a class="btn btn-success btn-sm" asp-controller="Applications" asp-action="Edit" asp-route-id="@application.Id">Approve</a>
-                                        <a class="btn btn-danger btn-sm" asp-controller="Applications" asp-action="Edit" asp-route-id="@application.Id">Reject</a>
+                                        <a class="btn btn-success" asp-controller="Applications" asp-action="Approve" asp-route-id="@application.Id">Approve</a>
+                                        <a class="btn btn-danger" asp-controller="Applications" asp-action="Reject" asp-route-id="@application.Id">Reject</a>
                                     </td>
                                 </tr>
 

@@ -84,9 +84,11 @@ namespace InterScOM.Areas.Staff.Controllers
         {
             if (ModelState.IsValid)
             {
+                application.ApplicationDate = DateTime.Now;
+                application.Status = "Pending";
                 _context.Add(application);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Dashboard));
             }
             return View(application);
         }
@@ -137,7 +139,7 @@ namespace InterScOM.Areas.Staff.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Dashboard));
             }
             return View(application);
         }
@@ -168,7 +170,101 @@ namespace InterScOM.Areas.Staff.Controllers
             var application = await _context.Application.FindAsync(id);
             _context.Application.Remove(application);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Dashboard));
+        }
+
+        // GET: Staff/Applications/Approve/5
+        public async Task<IActionResult> Approve(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var application = await _context.Application
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (application == null)
+            {
+                return NotFound();
+            }
+
+            return View(application);
+        }
+
+        // POST: Staff/Applications/Approve/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost,ActionName("Approve")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ApproveConfirmed(int id)
+        {
+            var application = await _context.Application.FindAsync(id);
+            try
+            {
+                application.Status = "Accepted";
+                _context.Update(application);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ApplicationExists(application.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Dashboard));
+           
+        }
+
+        // GET: Staff/Applications/Approve/5
+        public async Task<IActionResult> Reject(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var application = await _context.Application
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (application == null)
+            {
+                return NotFound();
+            }
+
+            return View(application);
+        }
+
+        // POST: Staff/Applications/Reject/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost,ActionName("Reject")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RejectConfirmed(int id)
+        {
+            var application = await _context.Application.FindAsync(id);
+            try
+            {
+                application.Status = "Rejected";
+                _context.Update(application);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ApplicationExists(application.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToAction(nameof(Dashboard));
+            
         }
 
         private bool ApplicationExists(int id)
