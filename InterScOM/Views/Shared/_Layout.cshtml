@@ -17,7 +17,6 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    @*<partial name="_LoginPartial" />*@
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -29,7 +28,7 @@
                             <a class="nav-link text-dark" asp-area="Staff" asp-controller="Applications" asp-action="Dashboard">Staff Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="Account" asp-action="Index">Accounts</a>
                         </li>
                         <li class="nav-item dropdown mt-2 ml-2">
                             <a href="#" class="dropdown-toggle text-dark" data-toggle="dropdown" role="button" aria-expanded="false">Admin<span class="caret"></span></a>
@@ -39,6 +38,9 @@
                                 <li><a class="text-dark ml-5" asp-area="Admin" asp-controller="Supplies" asp-action="Index">My Supplies</a></li>
                                 <li><a class="text-dark ml-5" asp-area="Admin" asp-controller="Vendors" asp-action="Index">My Vendors</a></li>
                             </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
                 </div>
