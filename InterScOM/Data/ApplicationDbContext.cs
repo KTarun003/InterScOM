@@ -23,10 +23,12 @@ namespace InterScOM.Data
 
         public DbSet<Supplies> Supplies { get; set; }
 
-        public DbSet<Orders> Orders { get; set; }
-
         public DbSet<Fee> Fee { get; set; }
 
         public DbSet<Application> Application { get; set; }
+
+        public DbSet<InterScOM.Areas.Admin.Models.Fee> Fee { get; set; }
+        public DbSet<InterScOM.Areas.Admin.Models.VendorOrders> VendorOrders { get; set; }
+        public DbSet<InterScOM.Areas.Admin.Models.Vendor> Vendor { get; set; }
     }
 }
