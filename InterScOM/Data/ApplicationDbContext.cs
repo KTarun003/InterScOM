@@ -26,9 +26,9 @@ namespace InterScOM.Data
         public DbSet<Fee> Fee { get; set; }
 
         public DbSet<Application> Application { get; set; }
-
-        public DbSet<InterScOM.Areas.Admin.Models.Fee> Fee { get; set; }
-        public DbSet<InterScOM.Areas.Admin.Models.VendorOrders> VendorOrders { get; set; }
-        public DbSet<InterScOM.Areas.Admin.Models.Vendor> Vendor { get; set; }
+        
+        public DbSet<VendorOrders> VendorOrders { get; set; }
+        
+        public DbSet<Vendor> Vendor { get; set; }
     }
 }
