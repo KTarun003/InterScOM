@@ -17,12 +17,10 @@ namespace InterScOM.Areas.Forum.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
         public string Topic { get; set; }
 
         public string UserName { get; set; }
 
-        [Required]
         public string Question { get; set; }
 
         public ICollection<Answer> Answers { get; set; }

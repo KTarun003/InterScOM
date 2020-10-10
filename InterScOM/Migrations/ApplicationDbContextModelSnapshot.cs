@@ -132,7 +132,6 @@ namespace InterScOM.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ThreadAnswer")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UpVotes")
@@ -159,11 +158,9 @@ namespace InterScOM.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Question")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Topic")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UpVotes")
@@ -175,47 +172,6 @@ namespace InterScOM.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Queries");
-                });
-
-            modelBuilder.Entity("InterScOM.Areas.Staff.Models.Application", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<float>("AnnualIncome")
-                        .HasColumnType("real");
-
-                    b.Property<DateTime>("ApplicationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("Dob")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FathersName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("InternetRating")
-                        .HasColumnType("int");
-
-                    b.Property<string>("MothersName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("Percentage")
-                        .HasColumnType("real");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Application");
                 });
 
             modelBuilder.Entity("InterScOM.Areas.Forum.Models.Answer", b =>
