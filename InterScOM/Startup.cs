@@ -39,6 +39,16 @@ namespace InterScOM
                     Configuration.GetConnectionString("AwsRds")));
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RequireAdminRole",
+                    policy => policy.RequireRole("admin"));
+                options.AddPolicy("RequireStaffRole",
+                    policy => policy.RequireRole("staff"));
+                options.AddPolicy("RequireParentRole",
+                    policy => policy.RequireRole("parent"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
