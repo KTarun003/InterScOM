@@ -1,53 +1,30 @@
-﻿@model IEnumerable<InterScOM.Areas.Forum.Models.Answer>
+﻿@model IEnumerable<InterScOM.Areas.Forum.Models.Query>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Forum</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-success" asp-action="Create">+ Create New Query</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.UserName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ThreadAnswer)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UpVotes)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DownVotes)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ThreadAnswer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UpVotes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DownVotes)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<ul style="list-style-type:none;">
+    @foreach (var item in Model)
+    {
+
+        <li  style="padding: 10px">
+            <div class="card">
+                <div class="card-header">
+                  Topic : @Html.DisplayFor(modelItem => item.Topic)
+                </div>
+                <div class="card-body">
+                    <a asp-action="Details" asp-route-id="@item.Id">
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.Question)</p>
+                    </a>
+                </div>
+            </div>
+        </li>
+
+    }
+</ul> 

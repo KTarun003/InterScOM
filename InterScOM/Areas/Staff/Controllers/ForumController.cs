@@ -23,7 +23,7 @@ namespace InterScOM.Areas.Staff.Controllers
         // GET: Staff/Forum
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Answers.ToListAsync());
+            return View(await _context.Queries.ToListAsync());
         }
 
         // GET: Staff/Forum/Details/5
@@ -34,20 +34,30 @@ namespace InterScOM.Areas.Staff.Controllers
                 return NotFound();
             }
 
-            var answer = await _context.Answers
+            var query = await _context.Queries
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (answer == null)
+            var answers = await _context.Answers.ToListAsync();
+            foreach (var answer in answers)
+            {
+                if (answer.QueryId == query.Id)
+                    query.Answers.Add(answer);
+            }
+            if (query == null)
             {
                 return NotFound();
             }
 
-            return View(answer);
+            return View(query);
         }
 
         // GET: Staff/Forum/Create
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
-            return View();
+            Answer answer = new Answer()
+            {
+                QueryId = id
+            };
+            return View(answer);
         }
 
         // POST: Staff/Forum/Create
@@ -55,7 +65,7 @@ namespace InterScOM.Areas.Staff.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,QueryId,UserName,ThreadAnswer,UpVotes,DownVotes")] Answer answer)
+        public async Task<IActionResult> Create([Bind("QueryId,UserName,ThreadAnswer,UpVotes,DownVotes")] Answer answer)
         {
             if (ModelState.IsValid)
             {
@@ -115,35 +125,6 @@ namespace InterScOM.Areas.Staff.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(answer);
-        }
-
-        // GET: Staff/Forum/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var answer = await _context.Answers
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (answer == null)
-            {
-                return NotFound();
-            }
-
-            return View(answer);
-        }
-
-        // POST: Staff/Forum/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var answer = await _context.Answers.FindAsync(id);
-            _context.Answers.Remove(answer);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
         private bool AnswerExists(int id)
