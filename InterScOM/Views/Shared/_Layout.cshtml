@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - InterScOM</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
@@ -26,14 +26,18 @@
                             <a class="nav-link text-dark" asp-area="Forum" asp-controller="Main" asp-action="Index">Forum</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Staff" asp-controller="Applications" asp-action="Dashboard">Staff Dashboard</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item dropdown mt-2 ml-2">
                             <a href="#" class="dropdown-toggle text-dark" data-toggle="dropdown" role="button" aria-expanded="false">Admin<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a class="text-dark ml-5" asp-area="Admin" asp-controller="Orders" asp-action="Index">My Orders</a></li>
+                                <li><a class="text-dark ml-5" asp-area="Admin" asp-controller="VendorOrders" asp-action="Index">My Orders</a></li>
                                 <li><a class="text-dark ml-5" asp-area="Admin" asp-controller="Fees" asp-action="Index">My Fees</a></li>
                                 <li><a class="text-dark ml-5" asp-area="Admin" asp-controller="Supplies" asp-action="Index">My Supplies</a></li>
+                                <li><a class="text-dark ml-5" asp-area="Admin" asp-controller="Vendors" asp-action="Index">My Vendors</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -53,7 +57,7 @@
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>

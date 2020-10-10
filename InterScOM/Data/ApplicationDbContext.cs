@@ -6,6 +6,7 @@ using InterScOM.Areas.Forum.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using InterScOM.Areas.Admin.Models;
+using InterScOM.Areas.Staff.Models;
 
 namespace InterScOM.Data
 {
@@ -20,10 +21,14 @@ namespace InterScOM.Data
 
         public DbSet<Answer> Answers { get; set; }
 
-        public DbSet<InterScOM.Areas.Admin.Models.Supplies> Supplies { get; set; }
+        public DbSet<Supplies> Supplies { get; set; }
 
-        public DbSet<InterScOM.Areas.Admin.Models.Orders> Orders { get; set; }
+        public DbSet<Fee> Fee { get; set; }
 
-        public DbSet<InterScOM.Areas.Admin.Models.Fee> Fee { get; set; }
+        public DbSet<Application> Application { get; set; }
+        
+        public DbSet<VendorOrders> VendorOrders { get; set; }
+        
+        public DbSet<Vendor> Vendor { get; set; }
     }
 }

@@ -14,7 +14,11 @@ namespace InterScOM.Areas.Forum.Models
 
         public string UserName { get; set; }
 
+        [Required]
         public string ThreadAnswer { get; set; }
 
+        public int UpVotes { get; set; }
+
+        public int DownVotes { get; set; }
     }
 }
