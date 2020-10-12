@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace InterScOM.Areas.Staff.Controllers
 {
-    [Authorize(Roles = "staff")]
+    //[Authorize(Roles = "staff")]
     [Area("Staff")]
     public class ApplicationsController : Controller
     {
