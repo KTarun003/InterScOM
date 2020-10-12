@@ -7,13 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Areas\Admin\Data\**" />
     <Compile Remove="Areas\Forum\Data\**" />
-    <Content Remove="Areas\Admin\Data\**" />
     <Content Remove="Areas\Forum\Data\**" />
-    <EmbeddedResource Remove="Areas\Admin\Data\**" />
     <EmbeddedResource Remove="Areas\Forum\Data\**" />
-    <None Remove="Areas\Admin\Data\**" />
     <None Remove="Areas\Forum\Data\**" />
   </ItemGroup>
 

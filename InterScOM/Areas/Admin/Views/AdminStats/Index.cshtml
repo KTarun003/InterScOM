@@ -1,6 +1,7 @@
-﻿@model InterScOM.Areas.Staff.Models.Dashboard
+﻿@model InterScOM.Areas.Admin.Models.AdminStats
+
 @{
-    ViewData["Title"] = "Dashoard";
+    ViewData["Title"] = "Admin Dashboard";
 }
 
 <div class="container-fluid">
@@ -8,49 +9,68 @@
     <br />
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-7">
             <h3>
-                Staff Dashboard
+                Admin Dashboard
             </h3>
+        </div>
+        <div class="col-md-5">
+            <a asp-controller="VendorOrders" asp-action="Index" class="btn btn-success p-2 px-3 mx-2">Orders </a>
+            <a asp-controller="Fees" asp-action="Index" class="btn btn-primary p-2 px-3 mx-2">Fees </a>
+            <a asp-controller="Supplies" asp-action="Index" class="btn btn-secondary p-2 mx-2 px-3">Supply </a>
+            <a asp-controller="Vendors" asp-action="Index" class="btn btn-danger p-2 mx-2 px-3">Vendors </a>
         </div>
     </div>
 
     <br />
 
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card">
                 <h5 class="card-header">
-                    Total No Of Applications
+                    Total Orders
                 </h5>
                 <div class="card-body">
                     <p class="card-text">
-                        @Model.Applications
+                        @Model.Totalorders
                     </p>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card">
                 <h5 class="card-header">
-                    Total Accepted Applications
+                    Total Orders Placed
                 </h5>
                 <div class="card-body">
                     <p class="card-text">
-                        @Model.Accepted
+                        @Model.OrdersPlaced
                     </p>
                 </div>
 
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card text-dark">
                 <h5 class="card-header">
-                    Total Rejected Applications
+                    Total Orders Received
                 </h5>
                 <div class="card-body">
                     <p class="card-text">
-                        @Model.Rejected
+                        @Model.OrdersReceived
+                    </p>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-dark">
+                <h5 class="card-header">
+                    Total Vendors
+                </h5>
+                <div class="card-body">
+                    <p class="card-text">
+                        @Model.TotalVendors
                     </p>
                 </div>
 
@@ -64,39 +84,35 @@
         <div class="col-sm-12 ">
             <div class="card text-dark">
                 <h5 class="card-header">
-                    Pending Applications
+                    Orders shipping
                 </h5>
                 <div class="card-body">
                     <table class="table table-borderless " style=" border-collapse: separate;  border-spacing: 0 1em;">
                         <thead>
                             <tr>
                                 <th>
-                                    Name
+                                    VendorId
                                 </th>
                                 <th>
-                                    Application Date
+                                    Order Name
                                 </th>
                                 <th>
-                                    Status
+                                    Date Placed
                                 </th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody class="text-dark">
 
-                            @foreach (var application in Model.PendingApplications)
+                            @foreach (var order in Model.OrdersShipping)
                             {
                                 <tr>
-                                    <td>@application.Name</td>
-                                    <td>@application.ApplicationDate</td>
-                                    <td class="badge badge-warning">@application.Status</td>
-                                    <td>
-                                        <a class="btn btn-success" asp-controller="Applications" asp-action="Approve" asp-route-id="@application.Id">Approve</a>
-                                        <a class="btn btn-danger" asp-controller="Applications" asp-action="Reject" asp-route-id="@application.Id">Reject</a>
-                                    </td>
+                                    <td>@order.VendorId</td>
+                                    <td>@order.OrderName</td>
+                                    <td>@order.DatePlaced</td>
                                 </tr>
-
                             }
+
                         </tbody>
                     </table>
                 </div>

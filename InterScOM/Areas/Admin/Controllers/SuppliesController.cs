@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using InterScOM.Areas.Admin.Models;
 using InterScOM.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace InterScOM.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "admin")]
     [Area("Admin")]
     public class SuppliesController : Controller
     {

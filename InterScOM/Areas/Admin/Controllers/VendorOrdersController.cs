@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using InterScOM.Areas.Admin.Models;
 using InterScOM.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace InterScOM.Areas.Admin.Controllers
 {
+    //[Authorize(Roles = "admin")]
     [Area("Admin")]
     public class VendorOrdersController : Controller
     {
@@ -23,6 +25,25 @@ namespace InterScOM.Areas.Admin.Controllers
         // GET: Admin/VendorOrders
         public async Task<IActionResult> Index()
         {
+            var vendors = await _context.Vendor.ToListAsync();
+            var vendororders = await _context.VendorOrders.ToListAsync();
+
+            foreach(var vendord in vendororders)
+            {
+                string vendname = vendord.VendorName;   
+
+                // checking if vend name in orders exists in vendor list
+                if (! vendors.Exists(vend => vend.VendorName == vendname))
+                {
+                    vendord.VendorId = 0;
+                }
+                else
+                {
+                    Vendor Vendorobj = vendors.Find(vend => vend.VendorName == vendname);
+                    vendord.VendorId = Vendorobj.Id;
+                }
+            }
+
             return View(await _context.VendorOrders.ToListAsync());
         }
 
