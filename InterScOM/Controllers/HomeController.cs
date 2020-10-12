@@ -31,8 +31,8 @@ namespace InterScOM.Controllers
             return View();
         }
 
-        [HttpPost,ActionName("Index")]
-        public async Task<IActionResult> LoginAsync([Bind("AppUser,Password")] LogIn logIn)
+        [HttpPost,ActionName("Login")]
+        public async Task<IActionResult> Login([Bind("AppUser,Password")] LogIn logIn)
         {
             if (ModelState.IsValid)
             {
@@ -49,6 +49,11 @@ namespace InterScOM.Controllers
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             }
             return View(nameof(Index));
+        }
+
+        public IActionResult Login()
+        {
+            return View();
         }
 
         public IActionResult Privacy()
