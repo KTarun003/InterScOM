@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using InterScOM.Areas.Admin.Models;
+using InterScOM.Areas.Staff.Controllers;
+using InterScOM.Areas.Staff.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -15,24 +17,16 @@ namespace InterScOM.Areas.Admin.Controllers
     [Area("Admin")]
     public class AccountController : Controller
     {
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public AccountController(UserManager<AppUser> userManager)
         {
             _userMgr = userManager;
-            _signInMgr = signInManager;
         }
 
-        private readonly SignInManager<AppUser> _signInMgr;
 
         private readonly UserManager<AppUser> _userMgr;
 
         // GET: AccountController
         public ActionResult Index()
-        {
-            return View();
-        }
-
-        // GET: AccountController/Details/5
-        public ActionResult Details(int id)
         {
             return View();
         }
@@ -44,41 +38,62 @@ namespace InterScOM.Areas.Admin.Controllers
         }
 
         // POST: AccountController/Create
-        [HttpPost]
+        [HttpPost,ActionName("Create")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult CreateUser([Bind("User,RoleName,Password")] UserVm userVm)
         {
-            try
+            if (ModelState.IsValid)
             {
+                _userMgr.CreateAsync(userVm.User, userVm.Password);
+                _userMgr.AddToRoleAsync(userVm.User, userVm.RoleName);
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
 
         [Authorize(Roles = "admin,staff,parent")]
         // GET: AccountController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string? name)
         {
-            return View();
+            if (name == null)
+            {
+                return NotFound();
+            }
+
+            var user = _userMgr.FindByNameAsync(name);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View(user);
         }
 
         [Authorize(Roles = "admin,staff,parent")]
         // POST: AccountController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> EditAsync([Bind("FisrtName,LastName,PhoneNumber")] AppUser user)
         {
-            try
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                await _userMgr.UpdateAsync(user);
+                if (await _userMgr.IsInRoleAsync(user,"admin"))
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                
+                if (await _userMgr.IsInRoleAsync(user, "staff"))
+                {
+                    RedirectToAction("Dashboard", "Applications");
+                }
+
+                if (await _userMgr.IsInRoleAsync(user, "parent"))
+                {
+                    RedirectToAction("Index", "Home");
+                }
+
             }
-            catch
-            {
-                return View();
-            }
+            return View(nameof(Edit),user);
         }
 
         // GET: AccountController/Delete/5
