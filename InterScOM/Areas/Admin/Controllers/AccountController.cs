@@ -28,7 +28,8 @@ namespace InterScOM.Areas.Admin.Controllers
         // GET: AccountController
         public ActionResult Index()
         {
-            return View();
+            var users = _userMgr.Users.ToList();
+            return View(users);
         }
 
         // GET: AccountController/Create
