@@ -56,6 +56,12 @@ namespace InterScOM.Controllers
             return View();
         }
 
+        public async Task<IActionResult> LogOut()
+        {
+            await _signInManager.SignOutAsync();
+            return View(nameof(Index));
+        }
+
         public IActionResult Privacy()
         {
             return View();
