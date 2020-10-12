@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace InterScOM.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "admin")]
+    //[Authorize(Roles = "admin")]
     [Area("Admin")]
     public class VendorsController : Controller
     {
