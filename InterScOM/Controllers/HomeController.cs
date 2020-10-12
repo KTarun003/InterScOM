@@ -44,7 +44,7 @@ namespace InterScOM.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return RedirectToAction(nameof(Privacy));
+                    return RedirectToAction(nameof(Index));
                 }
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             }

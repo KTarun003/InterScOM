@@ -6,23 +6,28 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-10">
+        <div class="col-8">
             <h2>My Orders</h2>
         </div>
-        <div class="col-2 mt-2">
+        <div class="col-4 mt-2">
             <a class="btn btn-success text-white" asp-action="Create">Add Order</a>
+            <a class="btn btn-danger text-white ml-4" asp-controller="Vendors" asp-action="Index">Vendors</a>
         </div>
     </div>
 </div>
 <br />
+<p class="text-uppercase text-info font-weight-bold"> Zero Vendor Id's are unidentified Vendors. Consider Adding them to Vendor Portal to identify them</p> 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.VendorId)
+                @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.VendorName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VendorId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.OrderName)
@@ -52,10 +57,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.VendorId)
+                @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.VendorName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VendorId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.OrderName)
@@ -79,9 +87,9 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id" >Edit</a>
-                <a asp-action="Details" asp-route-id="@item.Id" >Details</a>
-                <a asp-action="Delete" asp-route-id="@item.Id" >Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }
