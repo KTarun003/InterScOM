@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using InterScOM.Areas.Forum.Models;
 using InterScOM.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace InterScOM.Areas.Staff.Controllers
 {
+    [Authorize(Roles = "staff")]
     [Area("Staff")]
     public class ForumController : Controller
     {

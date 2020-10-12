@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using InterScOM.Areas.Admin.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace InterScOM.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "admin")]
     [Area("Admin")]
     public class AccountController : Controller
     {
@@ -56,12 +58,14 @@ namespace InterScOM.Areas.Admin.Controllers
             }
         }
 
+        [Authorize(Roles = "admin,staff,parent")]
         // GET: AccountController/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
+        [Authorize(Roles = "admin,staff,parent")]
         // POST: AccountController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
