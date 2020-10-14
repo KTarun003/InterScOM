@@ -27,11 +27,15 @@ namespace InterScOM.Areas.Admin.Controllers
         {
             var Orders = await _context.VendorOrders.ToListAsync();
             var Vendors = await _context.Vendor.ToListAsync();
+            var Supplies = await _context.Supplies.ToListAsync();
+            var Fees = await _context.Fee.ToListAsync();
 
             AdminStats admstats = new AdminStats
             {
                 Totalorders = Orders.Count(),
-                TotalVendors = Vendors.Count()
+                TotalVendors = Vendors.Count(),
+                TotalFees = Fees.Count(),
+                Totalsupplies = Supplies.Count()
             };
             foreach(var order in Orders)
             {
