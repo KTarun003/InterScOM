@@ -6,11 +6,12 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-10">
+        <div class="col-8">
             <h1>VENDOR PORTAL</h1>
         </div>
-        <div class="col-2">
-            <a asp-action="Create" class="text-right text-white btn-success p-2 btn">Create New</a>
+        <div class="col-4">
+            <a asp-action="Create" class="text-right text-white btn-success p-2 btn">Add Vendor</a>
+            <a class="text-right text-white btn-danger p-2 btn ml-5" asp-controller="VendorOrders" asp-action="Index">Orders</a>
         </div>
     </div>
 </div>

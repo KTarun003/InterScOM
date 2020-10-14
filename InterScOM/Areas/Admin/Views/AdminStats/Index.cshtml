@@ -1,0 +1,129 @@
+﻿@model InterScOM.Areas.Admin.Models.AdminStats
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container-fluid">
+
+    <br />
+
+    <div class="row">
+        <div class="col-md-7">
+            <h3>
+                Admin Dashboard
+            </h3>
+        </div>
+        <div class="col-md-5">
+            <a asp-controller="VendorOrders" asp-action="Index" class="btn btn-success p-2 px-3 mx-2">Orders </a>
+            <a asp-controller="Fees" asp-action="Index" class="btn btn-primary p-2 px-3 mx-2">Fees </a>
+            <a asp-controller="Supplies" asp-action="Index" class="btn btn-secondary p-2 mx-2 px-3">Supply </a>
+            <a asp-controller="Vendors" asp-action="Index" class="btn btn-danger p-2 mx-2 px-3">Vendors </a>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <h5 class="card-header">
+                    Total Orders
+                </h5>
+                <div class="card-body">
+                    <p class="card-text">
+                        @Model.Totalorders
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <h5 class="card-header">
+                    Total Orders Placed
+                </h5>
+                <div class="card-body">
+                    <p class="card-text">
+                        @Model.OrdersPlaced
+                    </p>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-dark">
+                <h5 class="card-header">
+                    Total Orders Received
+                </h5>
+                <div class="card-body">
+                    <p class="card-text">
+                        @Model.OrdersReceived
+                    </p>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-dark">
+                <h5 class="card-header">
+                    Total Vendors
+                </h5>
+                <div class="card-body">
+                    <p class="card-text">
+                        @Model.TotalVendors
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-sm-12 ">
+            <div class="card text-dark">
+                <h5 class="card-header">
+                    Orders shipping
+                </h5>
+                <div class="card-body">
+                    <table class="table table-borderless " style=" border-collapse: separate;  border-spacing: 0 1em;">
+                        <thead>
+                            <tr>
+                                <th>
+                                    VendorId
+                                </th>
+                                <th>
+                                    Order Name
+                                </th>
+                                <th>
+                                    Date Placed
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-dark">
+
+                            @foreach (var order in Model.OrdersShipping)
+                            {
+                                <tr>
+                                    <td>@order.VendorId</td>
+                                    <td>@order.OrderName</td>
+                                    <td>@order.DatePlaced</td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+
+
+
