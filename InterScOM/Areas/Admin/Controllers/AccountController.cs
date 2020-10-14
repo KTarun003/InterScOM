@@ -41,12 +41,13 @@ namespace InterScOM.Areas.Admin.Controllers
         // POST: AccountController/Create
         [HttpPost,ActionName("Create")]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateUser([Bind("User,RoleName,Password")] UserVm userVm)
+        public async Task<ActionResult> CreateUser([Bind("User,RoleName,Password")] UserVm userVm)
         {
             if (ModelState.IsValid)
             {
-                _userMgr.CreateAsync(userVm.User, userVm.Password);
-                _userMgr.AddToRoleAsync(userVm.User, userVm.RoleName);
+                userVm.User.EmailConfirmed = true;
+                await _userMgr.CreateAsync(userVm.User, userVm.Password);
+                await _userMgr.AddToRoleAsync(userVm.User, userVm.RoleName);
                 return RedirectToAction(nameof(Index));
             }
             return View();
@@ -54,14 +55,9 @@ namespace InterScOM.Areas.Admin.Controllers
 
         [Authorize(Roles = "admin,staff,parent")]
         // GET: AccountController/Edit/5
-        public ActionResult Edit(string? name)
+        public async Task<ActionResult> Edit(string email)
         {
-            if (name == null)
-            {
-                return NotFound();
-            }
-
-            var user = _userMgr.FindByNameAsync(name);
+            var user = await _userMgr.FindByEmailAsync(email);
             if (user == null)
             {
                 return NotFound();
@@ -73,14 +69,18 @@ namespace InterScOM.Areas.Admin.Controllers
         // POST: AccountController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditAsync([Bind("FisrtName,LastName,PhoneNumber")] AppUser user)
+        public async Task<ActionResult> EditAsync([Bind("FirstName,LastName,PhoneNumber,Email")] AppUser user)
         {
             if (ModelState.IsValid)
             {
-                await _userMgr.UpdateAsync(user);
+                var appUser = await _userMgr.FindByEmailAsync(user.Email);
+                appUser.LastName = user.LastName;
+                appUser.FirstName = user.FirstName;
+                appUser.PhoneNumber = user.PhoneNumber;
+                await _userMgr.UpdateAsync(appUser);
                 if (await _userMgr.IsInRoleAsync(user,"admin"))
                 {
-                    return RedirectToAction(nameof(Index));
+                    return View(nameof(Index));
                 }
                 
                 if (await _userMgr.IsInRoleAsync(user, "staff"))

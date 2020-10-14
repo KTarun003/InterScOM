@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using InterScOM.Areas.Admin.Models;
+using InterScOM.Areas.Staff.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using InterScOM.Models;
@@ -44,11 +45,21 @@ namespace InterScOM.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    if (await _userManager.IsInRoleAsync(user,"admin"))
+                    {
+                        return RedirectToAction(nameof(Index),"AdminStats", new { area = "Admin" });
+                    }
+                    if (await _userManager.IsInRoleAsync(user, "staff"))
+                    {
+                        return RedirectToAction("Dashboard", "Applications" , new { area = "Staff" });
+                    }
+
                     return RedirectToAction(nameof(Index));
                 }
+
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             }
-            return View(nameof(Index));
+            return View();
         }
 
         public IActionResult Login()
