@@ -14,18 +14,12 @@
                 Admin Dashboard
             </h3>
         </div>
-        <div class="col-md-5">
-            <a asp-controller="VendorOrders" asp-action="Index" class="btn btn-success p-2 px-3 mx-2">Orders </a>
-            <a asp-controller="Fees" asp-action="Index" class="btn btn-primary p-2 px-3 mx-2">Fees </a>
-            <a asp-controller="Supplies" asp-action="Index" class="btn btn-secondary p-2 mx-2 px-3">Supply </a>
-            <a asp-controller="Vendors" asp-action="Index" class="btn btn-danger p-2 mx-2 px-3">Vendors </a>
-        </div>
     </div>
 
     <br />
 
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="card">
                 <h5 class="card-header">
                     Total Orders
@@ -37,7 +31,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="card">
                 <h5 class="card-header">
                     Total Orders Placed
@@ -50,7 +44,7 @@
 
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="card text-dark">
                 <h5 class="card-header">
                     Total Orders Received
@@ -63,10 +57,15 @@
 
             </div>
         </div>
-        <div class="col-md-3">
+    </div>
+
+    <br /> <!--First row end -->
+    <div class="row">
+
+        <div class="col-md-4">
             <div class="card text-dark">
                 <h5 class="card-header">
-                    Total Vendors
+                    Total Vendors listed
                 </h5>
                 <div class="card-body">
                     <p class="card-text">
@@ -76,10 +75,40 @@
 
             </div>
         </div>
+        <div class="col-md-4">
+            <div class="card text-dark">
+                <h5 class="card-header">
+                    Total Supply Count
+                </h5>
+                <div class="card-body">
+                    <p class="card-text">
+                        @Model.Totalsupplies
+                    </p>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-dark">
+                <h5 class="card-header">
+                    Total Fee payments listed
+                </h5>
+                <div class="card-body">
+                    <p class="card-text">
+                        @Model.TotalFees
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+
     </div>
-
-    <br />
-
+    <br /> <!-- second row end -->
     <div class="row">
         <div class="col-sm-12 ">
             <div class="card text-dark">
