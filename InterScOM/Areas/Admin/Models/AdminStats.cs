@@ -25,5 +25,9 @@ namespace InterScOM.Areas.Admin.Models
 
         // Vendors
         public int TotalVendors { get; set; }
+        // supplies
+        public int Totalsupplies { get; set; }
+        // fee
+        public int TotalFees { get; set; }
     }
 }
