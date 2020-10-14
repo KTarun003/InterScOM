@@ -3,15 +3,29 @@
     ViewData["Title"] = "Dashoard";
 }
 
+<!-- My styles Start -->
+<style>
+    .card-header {
+        background-color: #BBADFF;
+    }
+
+    .card-body {
+        background-color: #DAB6FC;
+    }
+</style>
+
+
+<!-- My styles end -->
+
 <div class="container-fluid">
 
     <br />
 
     <div class="row">
-        <div class="col-md-6">
-            <h3>
-                Staff Dashboard
-            </h3>
+        <div class="col-md-12 text-center text-uppercase font-weight-bolder" style=" color: #817F82">
+            <h2>
+                staff Dashboard
+            </h2>
         </div>
     </div>
 
@@ -19,11 +33,11 @@
 
     <div class="row">
         <div class="col-md-4">
-            <div class="card">
+            <div class="card text-center">
                 <h5 class="card-header">
                     Total No Of Applications
                 </h5>
-                <div class="card-body">
+                <div class="card-body h4">
                     <p class="card-text">
                         @Model.Applications
                     </p>
@@ -31,11 +45,11 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card">
-                <h5 class="card-header">
+            <div class="card text-center">
+                <h5 class="card-header" style="background-color: #DAB6FC; ">
                     Total Accepted Applications
                 </h5>
-                <div class="card-body">
+                <div class="card-body h4" style="background-color: #BBADFF; ">
                     <p class="card-text">
                         @Model.Accepted
                     </p>
@@ -44,11 +58,11 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card text-dark">
+            <div class="card text-dark text-center">
                 <h5 class="card-header">
                     Total Rejected Applications
                 </h5>
-                <div class="card-body">
+                <div class="card-body h4">
                     <p class="card-text">
                         @Model.Rejected
                     </p>
@@ -62,11 +76,11 @@
 
     <div class="row">
         <div class="col-sm-12 ">
-            <div class="card text-dark">
-                <h5 class="card-header">
+            <div class="card text-dark text-center h4">
+                <h5 class="card-header text-uppercase h4">
                     Pending Applications
                 </h5>
-                <div class="card-body">
+                <div class="card-body ">
                     <table class="table table-borderless " style=" border-collapse: separate;  border-spacing: 0 1em;">
                         <thead>
                             <tr>
