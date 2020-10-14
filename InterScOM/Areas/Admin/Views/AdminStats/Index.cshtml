@@ -4,40 +4,59 @@
     ViewData["Title"] = "Admin Dashboard";
 }
 
+<!-- My styles Start -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;900&display=swap" rel="stylesheet">
+<style>
+    .card-header {
+        background-color: #BBADFF;
+    }
+    .card-body {
+        background-color: #DAB6FC;
+    }
+    .awesomefont {
+        font-family: 'Noto Sans JP', sans-serif;
+    }
+</style>
+
+
+<!-- My styles end -->
+
+
+
 <div class="container-fluid">
 
     <br />
 
     <div class="row">
-        <div class="col-md-7">
-            <h3>
+        <div class="col-md-12 text-center text-uppercase font-weight-bolder" style=" color: #817F82">
+            <h2>
                 Admin Dashboard
-            </h3>
+            </h2>
         </div>
     </div>
 
     <br />
 
     <div class="row">
-        <div class="col-md-4">
-            <div class="card">
+        <div class="col-md-4 ">
+            <div class="card text-center">
                 <h5 class="card-header">
                     Total Orders
                 </h5>
                 <div class="card-body">
-                    <p class="card-text">
+                    <p class="card-text h4">
                         @Model.Totalorders
                     </p>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card">
-                <h5 class="card-header">
+            <div class="card text-center">
+                <h5 class="card-header" style="background-color: #DAB6FC">
                     Total Orders Placed
                 </h5>
-                <div class="card-body">
-                    <p class="card-text">
+                <div class="card-body" style="background-color: #BBADFF">
+                    <p class="card-text h4">
                         @Model.OrdersPlaced
                     </p>
                 </div>
@@ -45,12 +64,12 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card text-dark">
+            <div class="card text-dark text-center">
                 <h5 class="card-header">
                     Total Orders Received
                 </h5>
                 <div class="card-body">
-                    <p class="card-text">
+                    <p class="card-text h4">
                         @Model.OrdersReceived
                     </p>
                 </div>
@@ -63,12 +82,12 @@
     <div class="row">
 
         <div class="col-md-4">
-            <div class="card text-dark">
-                <h5 class="card-header">
+            <div class="card text-dark text-center">
+                <h5 class="card-header ">
                     Total Vendors listed
                 </h5>
                 <div class="card-body">
-                    <p class="card-text">
+                    <p class="card-text h4 ">
                         @Model.TotalVendors
                     </p>
                 </div>
@@ -76,12 +95,12 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card text-dark">
-                <h5 class="card-header">
+            <div class="card text-dark text-center">
+                <h5 class="card-header" style="background-color: #DAB6FC">
                     Total Supply Count
                 </h5>
-                <div class="card-body">
-                    <p class="card-text">
+                <div class="card-body" style="background-color: #BBADFF">
+                    <p class="card-text h4">
                         @Model.Totalsupplies
                     </p>
                 </div>
@@ -89,12 +108,12 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card text-dark">
+            <div class="card text-dark text-center">
                 <h5 class="card-header">
                     Total Fee payments listed
                 </h5>
                 <div class="card-body">
-                    <p class="card-text">
+                    <p class="card-text h4">
                         @Model.TotalFees
                     </p>
                 </div>
@@ -111,11 +130,11 @@
     <br /> <!-- second row end -->
     <div class="row">
         <div class="col-sm-12 ">
-            <div class="card text-dark">
-                <h5 class="card-header">
+            <div class="card text-dark text-center">
+                <h5 class="card-header h4 text-uppercase ">
                     Orders shipping
                 </h5>
-                <div class="card-body">
+                <div class="card-body h4">
                     <table class="table table-borderless " style=" border-collapse: separate;  border-spacing: 0 1em;">
                         <thead>
                             <tr>
