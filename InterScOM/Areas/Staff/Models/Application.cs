@@ -36,6 +36,8 @@ namespace InterScOM.Areas.Staff.Models
 
         public int Fees { get; set; }
 
+        public string Email { get; set; }
+
         [DataType("Date")]
         public DateTime ApplicationDate { get; set; }
 
