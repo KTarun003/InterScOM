@@ -30,6 +30,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\InterScOMML.Model\InterScOMML.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Update="Areas\Staff\Views\Forum\Details.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

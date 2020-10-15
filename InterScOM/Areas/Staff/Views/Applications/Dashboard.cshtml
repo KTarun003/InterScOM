@@ -91,7 +91,7 @@
                                     Application Date
                                 </th>
                                 <th>
-                                    Status
+                                    Fees
                                 </th>
                                 <th></th>
                             </tr>
@@ -103,7 +103,7 @@
                                 <tr>
                                     <td>@application.Name</td>
                                     <td>@application.ApplicationDate</td>
-                                    <td class="badge badge-warning">@application.Status</td>
+                                    <td >@application.Fees</td>
                                     <td>
                                         <a class="btn btn-success" asp-controller="Applications" asp-action="Approve" asp-route-id="@application.Id">Approve</a>
                                         <a class="btn btn-danger" asp-controller="Applications" asp-action="Reject" asp-route-id="@application.Id">Reject</a>

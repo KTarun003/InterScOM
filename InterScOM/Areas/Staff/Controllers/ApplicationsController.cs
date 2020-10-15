@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using InterScOM.Areas.Staff.Models;
 using InterScOM.Data;
+using InterScOMML.Model;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.ML;
 
 namespace InterScOM.Areas.Staff.Controllers
 {
@@ -88,6 +90,15 @@ namespace InterScOM.Areas.Staff.Controllers
             {
                 application.ApplicationDate = DateTime.Now;
                 application.Status = "Pending";
+                ModelInput input = new ModelInput
+                {
+                    StudentId = application.Id,
+                    CGPA = application.Percentage
+                };
+                ModelOutput output = ConsumeModel.Predict(input);
+                int fees = (int) output.Score;
+                fees = (int) Math.Floor(output.Score/1000);
+                application.Fees = fees * 1000;
                 _context.Add(application);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Dashboard));
@@ -205,6 +216,7 @@ namespace InterScOM.Areas.Staff.Controllers
             {
                 application.Status = "Accepted";
                 _context.Update(application);
+
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)

@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InterScOM", "InterScOM\Inte
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InterScOMML.Model", "InterScOMML.Model\InterScOMML.Model.csproj", "{78AD2339-752E-47B2-B483-C2FF1CADAB29}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InterScOMML.ConsoleApp", "InterScOMML.ConsoleApp\InterScOMML.ConsoleApp.csproj", "{3E513D36-DE02-458A-87ED-C7328EF5F0CB}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{78AD2339-752E-47B2-B483-C2FF1CADAB29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78AD2339-752E-47B2-B483-C2FF1CADAB29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78AD2339-752E-47B2-B483-C2FF1CADAB29}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3E513D36-DE02-458A-87ED-C7328EF5F0CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3E513D36-DE02-458A-87ED-C7328EF5F0CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3E513D36-DE02-458A-87ED-C7328EF5F0CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3E513D36-DE02-458A-87ED-C7328EF5F0CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

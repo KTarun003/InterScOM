@@ -34,6 +34,8 @@ namespace InterScOM.Areas.Staff.Models
         [Required]
         public int InternetRating { get; set; }
 
+        public int Fees { get; set; }
+
         [DataType("Date")]
         public DateTime ApplicationDate { get; set; }
 
