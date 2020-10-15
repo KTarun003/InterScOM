@@ -28,7 +28,7 @@
                     {
                         @if ((await AuthorizationService.AuthorizeAsync(User, "RequireAdminRole")).Succeeded)
                         {
-                            <form asp-area="" asp-controller="Home" asp-action="LogOut" class="form-inline">
+                            <form asp-area="" asp-controller="Home" asp-action="LogOut" method="get" class="form-inline">
                                 <button class="btn btn-danger" type="submit">Logout</button>
                             </form>
                             <ul class="navbar-nav flex-grow-0">
