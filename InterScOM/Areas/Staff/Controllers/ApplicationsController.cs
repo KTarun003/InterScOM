@@ -127,7 +127,7 @@ namespace InterScOM.Areas.Staff.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,FathersName,MothersName,Dob,Percentage,AnnualIncome,InternetRating,Status")] Application application)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,FathersName,MothersName,Dob,Percentage,AnnualIncome,InternetRating")] Application application)
         {
             if (id != application.Id)
             {
