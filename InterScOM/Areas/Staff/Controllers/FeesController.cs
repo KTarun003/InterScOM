@@ -23,21 +23,33 @@ namespace InterScOM.Areas.Staff.Controllers
         }
 
         // GET: Admin/Fees
-        public IActionResult Index(int? id)
+        public async Task<IActionResult> Index(int? id)
         {
-            var list = from l in _context.Fee
-                    where l.FeeStatus.Equals("Due")
-                    select l;
+            List<Fee> list = new List<Fee>();
+            foreach (var item in _context.Fee)
+            {
+                if (item.FeeStatus.Equals("Due"))
+                {
+                    list.Add(item);
+                }
+            }
+            foreach (var item in list)
+            {
+                item.Application =await _context.Application.FindAsync(item.ApplicationId);
+            }
             if (id == null)
             {
                 return View(list);
             }
-
-            list = from l in list
-                where l.ApplicationId == id
-                   select l;
-
-            return View(list);
+            List<Fee> filteredList = new List<Fee>();
+            foreach (var item in list)
+            {
+                if (item.ApplicationId == id)
+                {
+                    filteredList.Add(item);
+                }
+            }
+            return View(filteredList);
         }
 
         // GET: Admin/Fees/Edit/5
@@ -58,7 +70,7 @@ namespace InterScOM.Areas.Staff.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Collect(int id, [Bind("Id,ParentName,FeeStatus")] Fee fee)
+        public async Task<IActionResult> Collect(int id, [Bind("Id,ParentName,FeeStatus,ApplicationId")] Fee fee)
         {
             if (id != fee.Id)
             {
@@ -69,6 +81,7 @@ namespace InterScOM.Areas.Staff.Controllers
             {
                 try
                 {
+                    fee = await _context.Fee.FindAsync(id);
                     fee.FeeStatus = "Paid";
                     _context.Update(fee);
                     await _context.SaveChangesAsync();
