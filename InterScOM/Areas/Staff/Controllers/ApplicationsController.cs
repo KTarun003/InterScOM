@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using InterScOM.Areas.Admin.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using InterScOM.Areas.Staff.Models;
 using InterScOM.Data;
+using InterScOMML.Model;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.ML;
 
 namespace InterScOM.Areas.Staff.Controllers
 {
@@ -17,9 +21,11 @@ namespace InterScOM.Areas.Staff.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public ApplicationsController(ApplicationDbContext context)
+        private readonly UserManager<AppUser> _userMgr;
+        public ApplicationsController(ApplicationDbContext context, UserManager<AppUser> userMgr)
         {
             _context = context;
+            _userMgr = userMgr;
         }
 
         public async Task<IActionResult> Dashboard()
@@ -82,12 +88,21 @@ namespace InterScOM.Areas.Staff.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,FathersName,MothersName,Dob,Percentage,AnnualIncome,InternetRating,Status")] Application application)
+        public async Task<IActionResult> Create([Bind("Id,Name,FathersName,MothersName,Dob,Percentage,AnnualIncome,InternetRating,Status,Email")] Application application)
         {
             if (ModelState.IsValid)
             {
                 application.ApplicationDate = DateTime.Now;
                 application.Status = "Pending";
+                ModelInput input = new ModelInput
+                {
+                    StudentId = application.Id,
+                    CGPA = application.Percentage
+                };
+                ModelOutput output = ConsumeModel.Predict(input);
+                int fees = (int) output.Score;
+                fees = (int) Math.Floor(output.Score/1000);
+                application.Fees = fees * 1000;
                 _context.Add(application);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Dashboard));
@@ -116,7 +131,7 @@ namespace InterScOM.Areas.Staff.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,FathersName,MothersName,Dob,Percentage,AnnualIncome,InternetRating,Status")] Application application)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,FathersName,MothersName,Dob,Percentage,AnnualIncome,InternetRating")] Application application)
         {
             if (id != application.Id)
             {
@@ -205,7 +220,21 @@ namespace InterScOM.Areas.Staff.Controllers
             {
                 application.Status = "Accepted";
                 _context.Update(application);
+                AppUser parent = new AppUser
+                {
+                    FirstName = application.FathersName,
+                    UserName = application.Name,
+                    Email = application.Email,
+                    EmailConfirmed = true
+                };
+                Fee fee = new Fee
+                {
+                    ParentName = application.FathersName,
+                    FeeStatus = "Due"
+                };
+                await _context.Fee.AddAsync(fee);
                 await _context.SaveChangesAsync();
+                await _userMgr.CreateAsync(parent, "School@123");
             }
             catch (DbUpdateConcurrencyException)
             {

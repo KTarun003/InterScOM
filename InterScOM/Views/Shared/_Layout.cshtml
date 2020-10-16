@@ -36,7 +36,7 @@
                     {
                         @if ((await AuthorizationService.AuthorizeAsync(User, "RequireAdminRole")).Succeeded)
                         {
-                            <form asp-controller="Home" asp-action="LogOut" class="form-inline">
+                            <form asp-area="" asp-controller="Home" asp-action="LogOut" method="get" class="form-inline">
                                 <button class="btn btn-danger" type="submit">Logout</button>
                             </form>
                             <ul class="navbar-nav flex-grow-0">
@@ -74,7 +74,7 @@
 
                         @if ((await AuthorizationService.AuthorizeAsync(User, "RequireStaffRole")).Succeeded)
                         {
-                            <form asp-controller="Home" asp-action="LogOut" class="form-inline">
+                            <form asp-area="" asp-controller="Home" asp-action="LogOut" class="form-inline">
                                 <button class="btn btn-danger" type="submit">Logout</button>
                             </form>
                             <ul class="navbar-nav flex-grow-0">
@@ -104,7 +104,7 @@
 
                         @if ((await AuthorizationService.AuthorizeAsync(User, "RequireParentRole")).Succeeded)
                         {
-                            <form asp-controller="Home" asp-action="LogOut" class="form-inline">
+                            <form asp-area="" asp-controller="Home" asp-action="LogOut" class="form-inline">
                                 <button class="btn btn-danger" type="submit">Logout</button>
                             </form>
                             <ul class="navbar-nav flex-grow-0">
@@ -113,6 +113,9 @@
                                 </li>
                             </ul>
                             <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="Forum" asp-controller="Main" asp-action="Index">Forum</a>
                                 </li>

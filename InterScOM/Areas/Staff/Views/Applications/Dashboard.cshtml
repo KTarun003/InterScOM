@@ -34,10 +34,10 @@
         </div>
         <div class="col-md-4">
             <div class="card text-center">
-                <h5 class="card-header" style="background-color: #DAB6FC; ">
+                <h5 class="card-header">
                     Total Accepted Applications
                 </h5>
-                <div class="card-body h4" style="background-color: #BBADFF; ">
+                <div class="card-body h4" >
                     <p class="card-text">
                         @Model.Accepted
                     </p>
@@ -64,12 +64,12 @@
 
     <div class="row">
         <div class="col-sm-12 ">
-            <div class="card text-dark text-center h4">
+            <div class="card text-dark text-center h4" >
                 <h5 class="card-header text-uppercase h4">
                     Pending Applications
                 </h5>
                 <div class="card-body ">
-                    <table class="table table-borderless " style=" border-collapse: separate;  border-spacing: 0 1em;">
+                    <table class="table table-borderless " style="border-collapse: separate;border-spacing: 0 1em;">
                         <thead>
                             <tr>
                                 <th>
@@ -79,7 +79,7 @@
                                     Application Date
                                 </th>
                                 <th>
-                                    Status
+                                    Fees
                                 </th>
                                 <th></th>
                             </tr>
@@ -91,7 +91,7 @@
                                 <tr>
                                     <td>@application.Name</td>
                                     <td>@application.ApplicationDate</td>
-                                    <td class="badge badge-warning">@application.Status</td>
+                                    <td >@application.Fees</td>
                                     <td>
                                         <a class="btn btn-success" asp-controller="Applications" asp-action="Approve" asp-route-id="@application.Id">Approve</a>
                                         <a class="btn btn-danger" asp-controller="Applications" asp-action="Reject" asp-route-id="@application.Id">Reject</a>
