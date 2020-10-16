@@ -13,7 +13,7 @@ namespace InterScOM.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ParentName = table.Column<string>(nullable: true),
-                    FeeStatus = table.Column<string>(nullable: true)
+                    FeeStatus = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {

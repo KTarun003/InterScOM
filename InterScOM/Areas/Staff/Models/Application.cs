@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using InterScOM.Areas.Admin.Models;
 
 namespace InterScOM.Areas.Staff.Models
 {
@@ -42,5 +43,7 @@ namespace InterScOM.Areas.Staff.Models
         public DateTime ApplicationDate { get; set; }
 
         public string Status { get; set; }
+
+        public Fee Fee { get; set; }
     }
 }

@@ -4,14 +4,16 @@ using InterScOM.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace InterScOM.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201016182200_AddedAppIdToFee")]
+    partial class AddedAppIdToFee
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,9 +38,6 @@ namespace InterScOM.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationId")
-                        .IsUnique();
 
                     b.ToTable("Fee");
                 });
@@ -228,15 +227,6 @@ namespace InterScOM.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Application");
-                });
-
-            modelBuilder.Entity("InterScOM.Areas.Admin.Models.Fee", b =>
-                {
-                    b.HasOne("InterScOM.Areas.Staff.Models.Application", "Application")
-                        .WithOne("Fee")
-                        .HasForeignKey("InterScOM.Areas.Admin.Models.Fee", "ApplicationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("InterScOM.Areas.Forum.Models.Answer", b =>

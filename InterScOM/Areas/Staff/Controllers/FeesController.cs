@@ -23,53 +23,25 @@ namespace InterScOM.Areas.Staff.Controllers
         }
 
         // GET: Admin/Fees
-        public async Task<IActionResult> Index()
+        public IActionResult Index(int? id)
         {
-            return View(await _context.Fee.ToListAsync());
-        }
-
-        // GET: Admin/Fees/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
+            var list = from l in _context.Fee
+                    where l.FeeStatus.Equals("Due")
+                    select l;
             if (id == null)
             {
-                return NotFound();
+                return View(list);
             }
 
-            var fee = await _context.Fee
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (fee == null)
-            {
-                return NotFound();
-            }
+            list = from l in list
+                where l.ApplicationId == id
+                   select l;
 
-            return View(fee);
-        }
-
-        // GET: Admin/Fees/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Admin/Fees/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ParentName,FeeStatus")] Fee fee)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(fee);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(fee);
+            return View(list);
         }
 
         // GET: Admin/Fees/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Collect(int? id)
         {
             if (id == null)
             {
@@ -77,10 +49,7 @@ namespace InterScOM.Areas.Staff.Controllers
             }
 
             var fee = await _context.Fee.FindAsync(id);
-            if (fee == null)
-            {
-                return NotFound();
-            }
+            fee.Application = await _context.Application.FindAsync(fee.ApplicationId);
             return View(fee);
         }
 
@@ -89,7 +58,7 @@ namespace InterScOM.Areas.Staff.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ParentName,FeeStatus")] Fee fee)
+        public async Task<IActionResult> Collect(int id, [Bind("Id,ParentName,FeeStatus")] Fee fee)
         {
             if (id != fee.Id)
             {
@@ -100,6 +69,7 @@ namespace InterScOM.Areas.Staff.Controllers
             {
                 try
                 {
+                    fee.FeeStatus = "Paid";
                     _context.Update(fee);
                     await _context.SaveChangesAsync();
                 }
@@ -117,35 +87,6 @@ namespace InterScOM.Areas.Staff.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(fee);
-        }
-
-        // GET: Admin/Fees/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var fee = await _context.Fee
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (fee == null)
-            {
-                return NotFound();
-            }
-
-            return View(fee);
-        }
-
-        // POST: Admin/Fees/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var fee = await _context.Fee.FindAsync(id);
-            _context.Fee.Remove(fee);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
         private bool FeeExists(int id)
