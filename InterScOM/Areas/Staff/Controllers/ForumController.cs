@@ -73,7 +73,7 @@ namespace InterScOM.Areas.Staff.Controllers
             {
                 _context.Add(answer);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", new { id = answer.QueryId });
             }
             return View(answer);
         }
