@@ -34,8 +34,8 @@ namespace InterScOM.Controllers
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 await _signInManager.SignOutAsync();
-                var user = await _userManager.FindByEmailAsync(logIn.AppUser.Email);
-                var result = await _signInManager.PasswordSignInAsync(user.UserName, logIn.Password, logIn.RememberMe, false);
+                AppUser user = await _userManager.FindByEmailAsync(logIn.AppUser.Email);
+                Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(user.UserName, logIn.Password, logIn.RememberMe, false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");

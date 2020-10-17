@@ -28,7 +28,7 @@ namespace InterScOM.Areas.Forum.Controllers
         {
             AppUser user = await _userMgr.FindByNameAsync(name);
             List<Fee> list = await _context.Fee.ToListAsync();
-            foreach (var item in list)
+            foreach (Fee item in list)
             {
                 if (item.ApplicationId == user.AppId)
                 {

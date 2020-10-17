@@ -33,7 +33,7 @@ namespace InterScOM.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var fee = await _context.Fee
+            Fee fee = await _context.Fee
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (fee == null)
             {
@@ -73,7 +73,7 @@ namespace InterScOM.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var fee = await _context.Fee.FindAsync(id);
+            Fee fee = await _context.Fee.FindAsync(id);
             if (fee == null)
             {
                 return NotFound();
@@ -124,7 +124,7 @@ namespace InterScOM.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var fee = await _context.Fee
+            Fee fee = await _context.Fee
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (fee == null)
             {
@@ -139,7 +139,7 @@ namespace InterScOM.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var fee = await _context.Fee.FindAsync(id);
+            Fee fee = await _context.Fee.FindAsync(id);
             _context.Fee.Remove(fee);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

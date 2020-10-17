@@ -21,10 +21,10 @@ namespace InterScOM.Areas.Admin.Controllers
         // GET: Admin/VendorOrders
         public async Task<IActionResult> Index()
         {
-            var vendors = await _context.Vendor.ToListAsync();
-            var vendororders = await _context.VendorOrders.ToListAsync();
+            System.Collections.Generic.List<Vendor> vendors = await _context.Vendor.ToListAsync();
+            System.Collections.Generic.List<VendorOrders> vendororders = await _context.VendorOrders.ToListAsync();
 
-            foreach (var vendord in vendororders)
+            foreach (VendorOrders vendord in vendororders)
             {
                 string vendname = vendord.VendorName;
 
@@ -51,7 +51,7 @@ namespace InterScOM.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var vendorOrders = await _context.VendorOrders
+            VendorOrders vendorOrders = await _context.VendorOrders
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (vendorOrders == null)
             {
@@ -91,7 +91,7 @@ namespace InterScOM.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var vendorOrders = await _context.VendorOrders.FindAsync(id);
+            VendorOrders vendorOrders = await _context.VendorOrders.FindAsync(id);
             if (vendorOrders == null)
             {
                 return NotFound();
@@ -142,7 +142,7 @@ namespace InterScOM.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var vendorOrders = await _context.VendorOrders
+            VendorOrders vendorOrders = await _context.VendorOrders
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (vendorOrders == null)
             {
@@ -157,7 +157,7 @@ namespace InterScOM.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var vendorOrders = await _context.VendorOrders.FindAsync(id);
+            VendorOrders vendorOrders = await _context.VendorOrders.FindAsync(id);
             _context.VendorOrders.Remove(vendorOrders);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

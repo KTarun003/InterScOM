@@ -32,7 +32,7 @@ namespace InterScOM.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var vendor = await _context.Vendor
+            Vendor vendor = await _context.Vendor
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (vendor == null)
             {
@@ -72,7 +72,7 @@ namespace InterScOM.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var vendor = await _context.Vendor.FindAsync(id);
+            Vendor vendor = await _context.Vendor.FindAsync(id);
             if (vendor == null)
             {
                 return NotFound();
@@ -123,7 +123,7 @@ namespace InterScOM.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var vendor = await _context.Vendor
+            Vendor vendor = await _context.Vendor
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (vendor == null)
             {
@@ -138,7 +138,7 @@ namespace InterScOM.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var vendor = await _context.Vendor.FindAsync(id);
+            Vendor vendor = await _context.Vendor.FindAsync(id);
             _context.Vendor.Remove(vendor);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

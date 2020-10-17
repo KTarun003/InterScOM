@@ -26,12 +26,12 @@ namespace InterScOM.Areas.Staff.Controllers
 
         public async Task<IActionResult> Dashboard()
         {
-            var applications = await _context.Application.ToListAsync();
+            System.Collections.Generic.List<Application> applications = await _context.Application.ToListAsync();
             Dashboard dashboard = new Dashboard
             {
                 Applications = applications.Count()
             };
-            foreach (var application in applications)
+            foreach (Application application in applications)
             {
                 if (application.Status.Equals("Accepted"))
                 {
@@ -63,7 +63,7 @@ namespace InterScOM.Areas.Staff.Controllers
                 return NotFound();
             }
 
-            var application = await _context.Application
+            Application application = await _context.Application
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (application == null)
             {
@@ -114,7 +114,7 @@ namespace InterScOM.Areas.Staff.Controllers
                 return NotFound();
             }
 
-            var application = await _context.Application.FindAsync(id);
+            Application application = await _context.Application.FindAsync(id);
             if (application == null)
             {
                 return NotFound();
@@ -165,7 +165,7 @@ namespace InterScOM.Areas.Staff.Controllers
                 return NotFound();
             }
 
-            var application = await _context.Application
+            Application application = await _context.Application
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (application == null)
             {
@@ -180,7 +180,7 @@ namespace InterScOM.Areas.Staff.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var application = await _context.Application.FindAsync(id);
+            Application application = await _context.Application.FindAsync(id);
             _context.Application.Remove(application);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Dashboard));
@@ -194,7 +194,7 @@ namespace InterScOM.Areas.Staff.Controllers
                 return NotFound();
             }
 
-            var application = await _context.Application
+            Application application = await _context.Application
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (application == null)
             {
@@ -211,7 +211,7 @@ namespace InterScOM.Areas.Staff.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ApproveConfirmed(int id)
         {
-            var application = await _context.Application.FindAsync(id);
+            Application application = await _context.Application.FindAsync(id);
             try
             {
                 application.Status = "Accepted";
@@ -256,7 +256,7 @@ namespace InterScOM.Areas.Staff.Controllers
                 return NotFound();
             }
 
-            var application = await _context.Application
+            Application application = await _context.Application
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (application == null)
             {
@@ -273,7 +273,7 @@ namespace InterScOM.Areas.Staff.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RejectConfirmed(int id)
         {
-            var application = await _context.Application.FindAsync(id);
+            Application application = await _context.Application.FindAsync(id);
             try
             {
                 application.Status = "Rejected";

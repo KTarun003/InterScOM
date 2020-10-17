@@ -23,7 +23,7 @@ namespace InterScOM.Areas.Admin.Controllers
         // GET: AccountController
         public ActionResult Index()
         {
-            var users = _userMgr.Users.ToList();
+            System.Collections.Generic.List<AppUser> users = _userMgr.Users.ToList();
             return View(users);
         }
 
@@ -52,7 +52,7 @@ namespace InterScOM.Areas.Admin.Controllers
         // GET: AccountController/Edit/5
         public async Task<ActionResult> Edit(string email)
         {
-            var user = await _userMgr.FindByEmailAsync(email);
+            AppUser user = await _userMgr.FindByEmailAsync(email);
             if (user == null)
             {
                 return NotFound();
@@ -68,7 +68,7 @@ namespace InterScOM.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var appUser = await _userMgr.FindByEmailAsync(user.Email);
+                AppUser appUser = await _userMgr.FindByEmailAsync(user.Email);
                 appUser.LastName = user.LastName;
                 appUser.FirstName = user.FirstName;
                 appUser.PhoneNumber = user.PhoneNumber;

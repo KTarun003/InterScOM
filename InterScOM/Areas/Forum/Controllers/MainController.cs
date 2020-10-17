@@ -30,13 +30,15 @@ namespace InterScOM.Areas.Forum.Controllers
                 return NotFound();
             }
 
-            var query = await _context.Queries
+            Query query = await _context.Queries
                 .FirstOrDefaultAsync(m => m.Id == id);
-            var answers = await _context.Answers.ToListAsync();
-            foreach (var answer in answers)
+            System.Collections.Generic.List<Answer> answers = await _context.Answers.ToListAsync();
+            foreach (Answer answer in answers)
             {
                 if (answer.QueryId == query.Id)
+                {
                     query.Answers.Add(answer);
+                }
             }
             if (query == null)
             {
@@ -77,13 +79,15 @@ namespace InterScOM.Areas.Forum.Controllers
                 return NotFound();
             }
 
-            var query = await _context.Queries
+            Query query = await _context.Queries
                 .FirstOrDefaultAsync(m => m.Id == id);
-            var answers = await _context.Answers.ToListAsync();
-            foreach (var answer in answers)
+            System.Collections.Generic.List<Answer> answers = await _context.Answers.ToListAsync();
+            foreach (Answer answer in answers)
             {
                 if (answer.QueryId == query.Id)
+                {
                     query.Answers.Add(answer);
+                }
             }
             if (query == null)
             {
@@ -91,7 +95,7 @@ namespace InterScOM.Areas.Forum.Controllers
             }
             if (type.Equals("Answer"))
             {
-                var answer = await _context.Answers.FindAsync(id);
+                Answer answer = await _context.Answers.FindAsync(id);
                 answer.DownVotes++;
                 _context.Answers.Update(answer);
             }
@@ -111,13 +115,15 @@ namespace InterScOM.Areas.Forum.Controllers
             {
                 return NotFound();
             }
-            var query = await _context.Queries
+            Query query = await _context.Queries
                 .FirstOrDefaultAsync(m => m.Id == id);
-            var answers = await _context.Answers.ToListAsync();
-            foreach (var answer in answers)
+            System.Collections.Generic.List<Answer> answers = await _context.Answers.ToListAsync();
+            foreach (Answer answer in answers)
             {
                 if (answer.QueryId == query.Id)
+                {
                     query.Answers.Add(answer);
+                }
             }
             if (query == null)
             {
@@ -125,7 +131,7 @@ namespace InterScOM.Areas.Forum.Controllers
             }
             if (type.Equals("Answer"))
             {
-                var answer = await _context.Answers.FindAsync(id);
+                Answer answer = await _context.Answers.FindAsync(id);
                 answer.DownVotes++;
                 _context.Answers.Update(answer);
             }

@@ -7,7 +7,7 @@ namespace InterScOMML.Model
 {
     public class ConsumeModel
     {
-        private static Lazy<PredictionEngine<ModelInput, ModelOutput>> PredictionEngine = new Lazy<PredictionEngine<ModelInput, ModelOutput>>(CreatePredictionEngine);
+        private static readonly Lazy<PredictionEngine<ModelInput, ModelOutput>> PredictionEngine = new Lazy<PredictionEngine<ModelInput, ModelOutput>>(CreatePredictionEngine);
 
         // For more info on consuming ML.NET models, visit https://aka.ms/mlnet-consume
         // Method for consuming model in your app
@@ -24,8 +24,8 @@ namespace InterScOMML.Model
 
             // Load model & create prediction engine
             string modelPath = @"C:\Users\Tarun\AppData\Local\Temp\MLVSTools\InterScOMML\InterScOMML.Model\MLModel.zip";
-            ITransformer mlModel = mlContext.Model.Load(modelPath, out var modelInputSchema);
-            var predEngine = mlContext.Model.CreatePredictionEngine<ModelInput, ModelOutput>(mlModel);
+            ITransformer mlModel = mlContext.Model.Load(modelPath, out DataViewSchema modelInputSchema);
+            PredictionEngine<ModelInput, ModelOutput> predEngine = mlContext.Model.CreatePredictionEngine<ModelInput, ModelOutput>(mlModel);
 
             return predEngine;
         }

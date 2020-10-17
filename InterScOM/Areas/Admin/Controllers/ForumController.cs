@@ -33,13 +33,15 @@ namespace InterScOM.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var query = await _context.Queries
+            Query query = await _context.Queries
                 .FirstOrDefaultAsync(m => m.Id == id);
-            var answers = await _context.Answers.ToListAsync();
-            foreach (var answer in answers)
+            System.Collections.Generic.List<Answer> answers = await _context.Answers.ToListAsync();
+            foreach (Answer answer in answers)
             {
                 if (answer.QueryId == query.Id)
+                {
                     query.Answers.Add(answer);
+                }
             }
             if (query == null)
             {
@@ -107,7 +109,7 @@ namespace InterScOM.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var answer = await _context.Answers.FindAsync(id);
+            Answer answer = await _context.Answers.FindAsync(id);
             if (answer == null)
             {
                 return NotFound();
@@ -158,7 +160,7 @@ namespace InterScOM.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var queries = await _context.Queries
+            Query queries = await _context.Queries
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (queries == null)
             {
@@ -173,7 +175,7 @@ namespace InterScOM.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var queries = await _context.Queries.FindAsync(id);
+            Query queries = await _context.Queries.FindAsync(id);
             _context.Queries.Remove(queries);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -187,7 +189,7 @@ namespace InterScOM.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var answer = await _context.Answers
+            Answer answer = await _context.Answers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (answer == null)
             {
@@ -202,7 +204,7 @@ namespace InterScOM.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmedAnswer(int id)
         {
-            var answers = await _context.Answers.FindAsync(id);
+            Answer answers = await _context.Answers.FindAsync(id);
             _context.Answers.Remove(answers);
             await _context.SaveChangesAsync();
             return RedirectToAction("Details", new { id = answers.QueryId });
@@ -216,13 +218,15 @@ namespace InterScOM.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var query = await _context.Queries
+            Query query = await _context.Queries
                 .FirstOrDefaultAsync(m => m.Id == id);
-            var answers = await _context.Answers.ToListAsync();
-            foreach (var answer in answers)
+            System.Collections.Generic.List<Answer> answers = await _context.Answers.ToListAsync();
+            foreach (Answer answer in answers)
             {
                 if (answer.QueryId == query.Id)
+                {
                     query.Answers.Add(answer);
+                }
             }
             if (query == null)
             {
@@ -230,7 +234,7 @@ namespace InterScOM.Areas.Admin.Controllers
             }
             if (type.Equals("Answer"))
             {
-                var answer = await _context.Answers.FindAsync(id);
+                Answer answer = await _context.Answers.FindAsync(id);
                 answer.DownVotes++;
                 _context.Answers.Update(answer);
             }
@@ -250,13 +254,15 @@ namespace InterScOM.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            var query = await _context.Queries
+            Query query = await _context.Queries
                 .FirstOrDefaultAsync(m => m.Id == id);
-            var answers = await _context.Answers.ToListAsync();
-            foreach (var answer in answers)
+            System.Collections.Generic.List<Answer> answers = await _context.Answers.ToListAsync();
+            foreach (Answer answer in answers)
             {
                 if (answer.QueryId == query.Id)
+                {
                     query.Answers.Add(answer);
+                }
             }
             if (query == null)
             {
@@ -264,7 +270,7 @@ namespace InterScOM.Areas.Admin.Controllers
             }
             if (type.Equals("Answer"))
             {
-                var answer = await _context.Answers.FindAsync(id);
+                Answer answer = await _context.Answers.FindAsync(id);
                 answer.DownVotes++;
                 _context.Answers.Update(answer);
             }

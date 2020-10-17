@@ -33,7 +33,7 @@ namespace InterScOM.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var supplies = await _context.Supplies
+            Supplies supplies = await _context.Supplies
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (supplies == null)
             {
@@ -73,7 +73,7 @@ namespace InterScOM.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var supplies = await _context.Supplies.FindAsync(id);
+            Supplies supplies = await _context.Supplies.FindAsync(id);
             if (supplies == null)
             {
                 return NotFound();
@@ -124,7 +124,7 @@ namespace InterScOM.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var supplies = await _context.Supplies
+            Supplies supplies = await _context.Supplies
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (supplies == null)
             {
@@ -139,7 +139,7 @@ namespace InterScOM.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var supplies = await _context.Supplies.FindAsync(id);
+            Supplies supplies = await _context.Supplies.FindAsync(id);
             _context.Supplies.Remove(supplies);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

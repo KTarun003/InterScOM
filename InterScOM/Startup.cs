@@ -54,8 +54,8 @@ namespace InterScOM
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-                var roleManager = serviceProvider.GetRequiredService<RoleManager<AppRole>>();
-                var userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
+                RoleManager<AppRole> roleManager = serviceProvider.GetRequiredService<RoleManager<AppRole>>();
+                UserManager<AppUser> userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
                 if (roleManager.FindByNameAsync("admin") == null &&
                     userManager.FindByEmailAsync("Test@admin.com") == null)
                 {
@@ -91,8 +91,8 @@ namespace InterScOM
 
         private async Task SeedData(IServiceProvider serviceProvider)
         {
-            var roleManager = serviceProvider.GetRequiredService<RoleManager<AppRole>>();
-            var userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
+            RoleManager<AppRole> roleManager = serviceProvider.GetRequiredService<RoleManager<AppRole>>();
+            UserManager<AppUser> userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
             AppUser adminUser = new AppUser
             {
                 FirstName = "Test",

@@ -23,10 +23,10 @@ namespace InterScOM.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var Orders = await _context.VendorOrders.ToListAsync();
-            var Vendors = await _context.Vendor.ToListAsync();
-            var Supplies = await _context.Supplies.ToListAsync();
-            var Fees = await _context.Fee.ToListAsync();
+            System.Collections.Generic.List<VendorOrders> Orders = await _context.VendorOrders.ToListAsync();
+            System.Collections.Generic.List<Vendor> Vendors = await _context.Vendor.ToListAsync();
+            System.Collections.Generic.List<Supplies> Supplies = await _context.Supplies.ToListAsync();
+            System.Collections.Generic.List<Fee> Fees = await _context.Fee.ToListAsync();
 
             AdminStats admstats = new AdminStats
             {
@@ -35,7 +35,7 @@ namespace InterScOM.Areas.Admin.Controllers
                 TotalFees = Fees.Count(),
                 Totalsupplies = Supplies.Count()
             };
-            foreach (var order in Orders)
+            foreach (VendorOrders order in Orders)
             {
                 if (order.Status.Equals("Placed"))
                 {
