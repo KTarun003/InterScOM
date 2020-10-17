@@ -16,7 +16,7 @@
         <div class="card-body">
             <p class="card-text">@Model.Question</p>
         </div>
-        <div class="card-footer">
+        <div class="card-footer form-inline">
             <form asp-action="UpVote" method="get">
                 <input asp-for="Id" type="hidden" />
                 <input name="type" value="Query" type="hidden" />
@@ -52,7 +52,7 @@
                     <div class="card-body">
                         <p class="card-text">@Html.DisplayFor(modelItem => answer.ThreadAnswer)</p>
                     </div>
-                    <div class="card-footer">
+                    <div class="card-footer form-inline">
                         <form asp-action="UpVote" method="get">
                             <input asp-for="Id" type="hidden" />
                             <input name="type" value="Answer" type="hidden" />

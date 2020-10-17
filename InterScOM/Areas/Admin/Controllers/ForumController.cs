@@ -211,6 +211,75 @@ namespace InterScOM.Areas.Admin.Controllers
             return RedirectToAction("Details", new { id = answers.QueryId });
         }
 
+        // GET: Forum/Main/Details/5
+        public async Task<IActionResult> UpVote(int? id, string type)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var query = await _context.Queries
+                .FirstOrDefaultAsync(m => m.Id == id);
+            var answers = await _context.Answers.ToListAsync();
+            foreach (var answer in answers)
+            {
+                if (answer.QueryId == query.Id)
+                    query.Answers.Add(answer);
+            }
+            if (query == null)
+            {
+                return NotFound();
+            }
+            if (type.Equals("Answer"))
+            {
+                var answer = await _context.Answers.FindAsync(id);
+                answer.DownVotes++;
+                _context.Answers.Update(answer);
+            }
+            else
+            {
+                query.DownVotes++;
+                _context.Queries.Update(query);
+            }
+            await _context.SaveChangesAsync();
+            return View("Details", query);
+        }
+
+        // GET: Forum/Main/Details/5
+        public async Task<IActionResult> DownVote(int? id, string type)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var query = await _context.Queries
+                .FirstOrDefaultAsync(m => m.Id == id);
+            var answers = await _context.Answers.ToListAsync();
+            foreach (var answer in answers)
+            {
+                if (answer.QueryId == query.Id)
+                    query.Answers.Add(answer);
+            }
+            if (query == null)
+            {
+                return NotFound();
+            }
+            if (type.Equals("Answer"))
+            {
+                var answer = await _context.Answers.FindAsync(id);
+                answer.DownVotes++;
+                _context.Answers.Update(answer);
+            }
+            else
+            {
+                query.DownVotes++;
+                _context.Queries.Update(query);
+            }
+            await _context.SaveChangesAsync();
+            return View("Details", query);
+        }
+
         private bool AnswerExists(int id)
         {
             return _context.Answers.Any(e => e.Id == id);
