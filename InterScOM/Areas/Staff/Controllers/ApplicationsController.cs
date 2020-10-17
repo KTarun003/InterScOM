@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using InterScOM.Areas.Admin.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+﻿using InterScOM.Areas.Admin.Models;
 using InterScOM.Areas.Staff.Models;
 using InterScOM.Data;
 using InterScOMML.Model;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.ML;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace InterScOM.Areas.Staff.Controllers
 {
@@ -30,7 +26,7 @@ namespace InterScOM.Areas.Staff.Controllers
 
         public async Task<IActionResult> Dashboard()
         {
-            var applications =  await _context.Application.ToListAsync();
+            var applications = await _context.Application.ToListAsync();
             Dashboard dashboard = new Dashboard
             {
                 Applications = applications.Count()
@@ -41,11 +37,11 @@ namespace InterScOM.Areas.Staff.Controllers
                 {
                     dashboard.Accepted++;
                 }
-                else if(application.Status.Equals("Rejected"))
+                else if (application.Status.Equals("Rejected"))
                 {
                     dashboard.Rejected++;
                 }
-                else if (application.Status.Equals("Pending") && (dashboard.PendingApplications.Count <=5))
+                else if (application.Status.Equals("Pending") && (dashboard.PendingApplications.Count <= 5))
                 {
                     dashboard.PendingApplications.Add(application);
                 }
@@ -100,8 +96,8 @@ namespace InterScOM.Areas.Staff.Controllers
                     CGPA = application.Percentage
                 };
                 ModelOutput output = ConsumeModel.Predict(input);
-                int fees = (int) output.Score;
-                fees = (int) Math.Floor(output.Score/1000);
+                int fees = (int)output.Score;
+                fees = (int)Math.Floor(output.Score / 1000);
                 application.Fees = fees * 1000;
                 _context.Add(application);
                 await _context.SaveChangesAsync();
@@ -211,7 +207,7 @@ namespace InterScOM.Areas.Staff.Controllers
         // POST: Staff/Applications/Approve/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost,ActionName("Approve")]
+        [HttpPost, ActionName("Approve")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ApproveConfirmed(int id)
         {
@@ -249,7 +245,7 @@ namespace InterScOM.Areas.Staff.Controllers
                 }
             }
             return RedirectToAction(nameof(Dashboard));
-           
+
         }
 
         // GET: Staff/Applications/Approve/5
@@ -273,7 +269,7 @@ namespace InterScOM.Areas.Staff.Controllers
         // POST: Staff/Applications/Reject/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost,ActionName("Reject")]
+        [HttpPost, ActionName("Reject")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RejectConfirmed(int id)
         {
@@ -296,7 +292,7 @@ namespace InterScOM.Areas.Staff.Controllers
                 }
             }
             return RedirectToAction(nameof(Dashboard));
-            
+
         }
 
         private bool ApplicationExists(int id)

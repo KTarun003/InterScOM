@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using InterScOM.Areas.Admin.Models;
+using InterScOM.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using InterScOM.Areas.Admin.Models;
-using InterScOM.Data;
-using Microsoft.AspNetCore.Authorization;
 
 namespace InterScOM.Areas.Admin.Controllers
 {
@@ -28,12 +24,12 @@ namespace InterScOM.Areas.Admin.Controllers
             var vendors = await _context.Vendor.ToListAsync();
             var vendororders = await _context.VendorOrders.ToListAsync();
 
-            foreach(var vendord in vendororders)
+            foreach (var vendord in vendororders)
             {
-                string vendname = vendord.VendorName;   
+                string vendname = vendord.VendorName;
 
                 // checking if vend name in orders exists in vendor list
-                if (! vendors.Exists(vend => vend.VendorName == vendname))
+                if (!vendors.Exists(vend => vend.VendorName == vendname))
                 {
                     vendord.VendorId = 0;
                 }

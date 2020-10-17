@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using InterScOM.Areas.Forum.Models;
+﻿using InterScOM.Areas.Forum.Models;
 using InterScOM.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace InterScOM.Areas.Admin.Controllers
 {
@@ -97,7 +94,7 @@ namespace InterScOM.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 // after making answering returning to the details page
 
-                return RedirectToAction("Details", new { id = answer.QueryId});
+                return RedirectToAction("Details", new { id = answer.QueryId });
             }
             return View(answer);
         }

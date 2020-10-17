@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using InterScOM.Areas.Forum.Models;
+﻿using InterScOM.Areas.Forum.Models;
 using InterScOM.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace InterScOM.Areas.Forum.Controllers
 {
@@ -39,7 +35,7 @@ namespace InterScOM.Areas.Forum.Controllers
             var answers = await _context.Answers.ToListAsync();
             foreach (var answer in answers)
             {
-                if (answer.QueryId == query.Id) 
+                if (answer.QueryId == query.Id)
                     query.Answers.Add(answer);
             }
             if (query == null)
@@ -49,7 +45,7 @@ namespace InterScOM.Areas.Forum.Controllers
             return View(query);
         }
 
-       
+
 
         // GET: Forum/Main/Create
         public IActionResult Create()
@@ -74,7 +70,7 @@ namespace InterScOM.Areas.Forum.Controllers
         }
 
         // GET: Forum/Main/Details/5
-        public async Task<IActionResult> UpVote(int? id,string type)
+        public async Task<IActionResult> UpVote(int? id, string type)
         {
             if (id == null)
             {
@@ -105,11 +101,11 @@ namespace InterScOM.Areas.Forum.Controllers
                 _context.Queries.Update(query);
             }
             await _context.SaveChangesAsync();
-            return View("Details",query);
+            return View("Details", query);
         }
 
         // GET: Forum/Main/Details/5
-        public async Task<IActionResult> DownVote(int? id,string type)
+        public async Task<IActionResult> DownVote(int? id, string type)
         {
             if (id == null)
             {

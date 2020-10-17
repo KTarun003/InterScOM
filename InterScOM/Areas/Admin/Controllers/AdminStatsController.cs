@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using InterScOM.Areas.Admin.Models;
+using InterScOM.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using InterScOM.Data;
-using Microsoft.EntityFrameworkCore;
-using InterScOM.Areas.Admin.Models;
 
 namespace InterScOM.Areas.Admin.Controllers
 {
@@ -37,24 +35,24 @@ namespace InterScOM.Areas.Admin.Controllers
                 TotalFees = Fees.Count(),
                 Totalsupplies = Supplies.Count()
             };
-            foreach(var order in Orders)
+            foreach (var order in Orders)
             {
                 if (order.Status.Equals("Placed"))
                 {
                     admstats.OrdersPlaced++;
                 }
-                else if(order.Status.Equals("Received"))
+                else if (order.Status.Equals("Received"))
                 {
                     admstats.OrdersReceived++;
                 }
-                else if(order.Status.Equals("Shipped") && admstats.OrdersShipping.Count <= 5)
+                else if (order.Status.Equals("Shipped") && admstats.OrdersShipping.Count <= 5)
                 {
                     admstats.OrdersShipping.Add(order);
                 }
             }
-            
-            
-            
+
+
+
             return View(admstats);
         }
     }

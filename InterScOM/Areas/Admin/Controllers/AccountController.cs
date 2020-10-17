@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using InterScOM.Areas.Admin.Models;
-using InterScOM.Areas.Staff.Controllers;
-using InterScOM.Areas.Staff.Models;
+﻿using InterScOM.Areas.Admin.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace InterScOM.Areas.Admin.Controllers
 {
@@ -39,7 +34,7 @@ namespace InterScOM.Areas.Admin.Controllers
         }
 
         // POST: AccountController/Create
-        [HttpPost,ActionName("Create")]
+        [HttpPost, ActionName("Create")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateUser([Bind("User,RoleName,Password")] UserVm userVm)
         {
@@ -78,11 +73,11 @@ namespace InterScOM.Areas.Admin.Controllers
                 appUser.FirstName = user.FirstName;
                 appUser.PhoneNumber = user.PhoneNumber;
                 await _userMgr.UpdateAsync(appUser);
-                if (await _userMgr.IsInRoleAsync(user,"admin"))
+                if (await _userMgr.IsInRoleAsync(user, "admin"))
                 {
                     return View(nameof(Index));
                 }
-                
+
                 if (await _userMgr.IsInRoleAsync(user, "staff"))
                 {
                     RedirectToAction("Dashboard", "Applications");
@@ -94,7 +89,7 @@ namespace InterScOM.Areas.Admin.Controllers
                 }
 
             }
-            return View(nameof(Edit),user);
+            return View(nameof(Edit), user);
         }
 
         // GET: AccountController/Delete/5
@@ -118,6 +113,6 @@ namespace InterScOM.Areas.Admin.Controllers
             }
         }
 
-        
+
     }
 }
