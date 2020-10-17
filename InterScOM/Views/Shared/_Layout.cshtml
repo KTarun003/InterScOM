@@ -9,9 +9,17 @@
     <style>
         .navbar {
             background-color: #95D9DA;
-            border-bottom-color:black;
-            
+            border-bottom-color: black;
         }
+       
+        .card-header {
+            background-color: #BBADFF;
+        }
+
+        .card-body {
+            background-color: #DAB6FC;
+        }
+
     </style>
 </head>
 <body>
@@ -39,6 +47,9 @@
                             <ul class="navbar-nav flex-grow-1">
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="Admin" asp-controller="AdminStats" asp-action="Index">Dashboard</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Admin" asp-controller="Forum" asp-action="Index">Forum</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="Admin" asp-controller="VendorOrders" asp-action="Index">Orders</a>
@@ -79,6 +90,9 @@
                                     <a class="nav-link text-dark" asp-area="Staff" asp-controller="Forum" asp-action="Index">Forum</a>
                                 </li>
                                 <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Staff" asp-controller="Fees" asp-action="Index">Fee Collection</a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="Staff" asp-controller="Applications" asp-action="Index">All Applications</a>
                                 </li>
                                 <li class="nav-item">
@@ -107,6 +121,9 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="Forum" asp-controller="Main" asp-action="Index">Forum</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Forum" asp-controller="Fees" asp-action="Index" asp-route-name="@User.Identity.Name">Pay Fees</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>

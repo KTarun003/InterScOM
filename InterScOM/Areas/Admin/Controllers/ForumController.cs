@@ -9,10 +9,10 @@ using InterScOM.Areas.Forum.Models;
 using InterScOM.Data;
 using Microsoft.AspNetCore.Authorization;
 
-namespace InterScOM.Areas.Staff.Controllers
+namespace InterScOM.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "staff")]
-    [Area("Staff")]
+    [Authorize(Roles = "admin")]
+    [Area("Admin")]
     public class ForumController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,13 +22,13 @@ namespace InterScOM.Areas.Staff.Controllers
             _context = context;
         }
 
-        // GET: Staff/Forum
+        // GET: Admin/Forum
         public async Task<IActionResult> Index()
         {
             return View(await _context.Queries.ToListAsync());
         }
 
-        // GET: Staff/Forum/Details/5
+        // GET: Admin/Forum/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -52,7 +52,29 @@ namespace InterScOM.Areas.Staff.Controllers
             return View(query);
         }
 
-        // GET: Staff/Forum/Create
+        // GET: Admin/Forum/CreateQ
+        public IActionResult CreateQ()
+        {
+            return View();
+        }
+
+        // POST: Admin/Forum/CreateQ
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateQ([Bind("Id,Topic,UserName,Question,UpVotes,DownVotes")] Query query)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(query);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(query);
+        }
+
+        // GET: Admin/Forum/Create
         public IActionResult Create(int id)
         {
             Answer answer = new Answer()
@@ -62,7 +84,7 @@ namespace InterScOM.Areas.Staff.Controllers
             return View(answer);
         }
 
-        // POST: Staff/Forum/Create
+        // POST: Admin/Forum/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -73,12 +95,14 @@ namespace InterScOM.Areas.Staff.Controllers
             {
                 _context.Add(answer);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Details", new { id = answer.QueryId });
+                // after making answering returning to the details page
+
+                return RedirectToAction("Details", new { id = answer.QueryId});
             }
             return View(answer);
         }
 
-        // GET: Staff/Forum/Edit/5
+        // GET: Admin/Forum/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -94,7 +118,7 @@ namespace InterScOM.Areas.Staff.Controllers
             return View(answer);
         }
 
-        // POST: Staff/Forum/Edit/5
+        // POST: Admin/Forum/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -129,73 +153,62 @@ namespace InterScOM.Areas.Staff.Controllers
             return View(answer);
         }
 
-        // GET: Forum/Main/Details/5
-        public async Task<IActionResult> UpVote(int? id, string type)
+        // GET: Admin/Forum/DeleteQ/5
+        public async Task<IActionResult> DeleteQ(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var query = await _context.Queries
+            var queries = await _context.Queries
                 .FirstOrDefaultAsync(m => m.Id == id);
-            var answers = await _context.Answers.ToListAsync();
-            foreach (var answer in answers)
-            {
-                if (answer.QueryId == query.Id)
-                    query.Answers.Add(answer);
-            }
-            if (query == null)
+            if (queries == null)
             {
                 return NotFound();
             }
-            if (type.Equals("Answer"))
-            {
-                var answer = await _context.Answers.FindAsync(id);
-                answer.DownVotes++;
-                _context.Answers.Update(answer);
-            }
-            else
-            {
-                query.DownVotes++;
-                _context.Queries.Update(query);
-            }
-            await _context.SaveChangesAsync();
-            return View("Details", query);
+
+            return View(queries);
         }
 
-        // GET: Forum/Main/Details/5
-        public async Task<IActionResult> DownVote(int? id, string type)
+        // POST: Admin/Forum/DeleteQ/5
+        [HttpPost, ActionName("DeleteQ")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var queries = await _context.Queries.FindAsync(id);
+            _context.Queries.Remove(queries);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Admin/Forum/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            var query = await _context.Queries
+
+            var answer = await _context.Answers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            var answers = await _context.Answers.ToListAsync();
-            foreach (var answer in answers)
-            {
-                if (answer.QueryId == query.Id)
-                    query.Answers.Add(answer);
-            }
-            if (query == null)
+            if (answer == null)
             {
                 return NotFound();
             }
-            if (type.Equals("Answer"))
-            {
-                var answer = await _context.Answers.FindAsync(id);
-                answer.DownVotes++;
-                _context.Answers.Update(answer);
-            }
-            else
-            {
-                query.DownVotes++;
-                _context.Queries.Update(query);
-            }
+
+            return View(answer);
+        }
+
+        // POST: Admin/Forum/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmedAnswer(int id)
+        {
+            var answers = await _context.Answers.FindAsync(id);
+            _context.Answers.Remove(answers);
             await _context.SaveChangesAsync();
-            return View("Details", query);
+            return RedirectToAction("Details", new { id = answers.QueryId });
         }
 
         private bool AnswerExists(int id)

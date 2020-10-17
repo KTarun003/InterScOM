@@ -8,61 +8,42 @@ using Microsoft.EntityFrameworkCore;
 using InterScOM.Areas.Admin.Models;
 using InterScOM.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
-namespace InterScOM.Areas.Staff.Controllers
+namespace InterScOM.Areas.Forum.Controllers
 {
-    [Authorize(Roles = "staff")]
-    [Area("Staff")]
+    [Authorize(Roles = "parent"), Area("Forum")]
     public class FeesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public FeesController(ApplicationDbContext context)
+        public FeesController(ApplicationDbContext context, UserManager<AppUser> userMgr)
         {
             _context = context;
+            _userMgr = userMgr;
         }
+
+        private readonly UserManager<AppUser> _userMgr;
 
         // GET: Admin/Fees
-        public async Task<IActionResult> Index(int? id)
+        public async Task<IActionResult> Index(string name)
         {
-            List<Fee> list = new List<Fee>();
-            foreach (var item in _context.Fee)
-            {
-                if (item.FeeStatus.Equals("Due"))
-                {
-                    list.Add(item);
-                }
-            }
+            AppUser user = await _userMgr.FindByNameAsync(name);
+            List<Fee> list = await _context.Fee.ToListAsync();
             foreach (var item in list)
             {
-                item.Application =await _context.Application.FindAsync(item.ApplicationId);
-            }
-            if (id == null)
-            {
-                return View(list);
-            }
-            List<Fee> filteredList = new List<Fee>();
-            foreach (var item in list)
-            {
-                if (item.ApplicationId == id)
+                if (item.ApplicationId == user.AppId)
                 {
-                    filteredList.Add(item);
+                    if (item.FeeStatus.Equals("Due"))
+                    {
+                        item.Application = await _context.Application.FindAsync(item.ApplicationId);
+                        return View(item);
+                    }
                 }
-            }
-            return View(filteredList);
-        }
-
-        // GET: Admin/Fees/Edit/5
-        public async Task<IActionResult> Collect(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
+                
             }
 
-            var fee = await _context.Fee.FindAsync(id);
-            fee.Application = await _context.Application.FindAsync(fee.ApplicationId);
-            return View(fee);
+            return NotFound();
         }
 
         // POST: Admin/Fees/Edit/5
@@ -97,9 +78,9 @@ namespace InterScOM.Areas.Staff.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index","Home",new {area=""});
             }
-            return View(fee);
+            return View(nameof(Index),fee);
         }
 
         private bool FeeExists(int id)
