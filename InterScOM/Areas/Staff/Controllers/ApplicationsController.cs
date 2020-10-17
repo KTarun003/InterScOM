@@ -224,6 +224,7 @@ namespace InterScOM.Areas.Staff.Controllers
                 {
                     FirstName = application.FathersName,
                     UserName = application.Name,
+                    AppId = application.Id,
                     Email = application.Email,
                     EmailConfirmed = true
                 };

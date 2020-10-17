@@ -11,5 +11,7 @@ namespace InterScOM.Areas.Admin.Models
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
+
+        public int AppId { get; set; }
     }
 }
