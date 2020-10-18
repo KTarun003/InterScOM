@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using InterScOM.Areas.Admin.Models;
+﻿using InterScOM.Areas.Admin.Models;
 
 namespace InterScOM.Areas.Admin
 {

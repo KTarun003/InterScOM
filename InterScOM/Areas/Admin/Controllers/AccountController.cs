@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using InterScOM.Areas.Admin.Models;
-using InterScOM.Areas.Staff.Controllers;
-using InterScOM.Areas.Staff.Models;
+﻿using InterScOM.Areas.Admin.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace InterScOM.Areas.Admin.Controllers
 {
@@ -28,7 +23,7 @@ namespace InterScOM.Areas.Admin.Controllers
         // GET: AccountController
         public ActionResult Index()
         {
-            var users = _userMgr.Users.ToList();
+            System.Collections.Generic.List<AppUser> users = _userMgr.Users.ToList();
             return View(users);
         }
 
@@ -39,7 +34,7 @@ namespace InterScOM.Areas.Admin.Controllers
         }
 
         // POST: AccountController/Create
-        [HttpPost,ActionName("Create")]
+        [HttpPost, ActionName("Create")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateUser([Bind("User,RoleName,Password")] UserVm userVm)
         {
@@ -57,7 +52,7 @@ namespace InterScOM.Areas.Admin.Controllers
         // GET: AccountController/Edit/5
         public async Task<ActionResult> Edit(string email)
         {
-            var user = await _userMgr.FindByEmailAsync(email);
+            AppUser user = await _userMgr.FindByEmailAsync(email);
             if (user == null)
             {
                 return NotFound();
@@ -73,16 +68,16 @@ namespace InterScOM.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var appUser = await _userMgr.FindByEmailAsync(user.Email);
+                AppUser appUser = await _userMgr.FindByEmailAsync(user.Email);
                 appUser.LastName = user.LastName;
                 appUser.FirstName = user.FirstName;
                 appUser.PhoneNumber = user.PhoneNumber;
                 await _userMgr.UpdateAsync(appUser);
-                if (await _userMgr.IsInRoleAsync(user,"admin"))
+                if (await _userMgr.IsInRoleAsync(user, "admin"))
                 {
                     return View(nameof(Index));
                 }
-                
+
                 if (await _userMgr.IsInRoleAsync(user, "staff"))
                 {
                     RedirectToAction("Dashboard", "Applications");
@@ -94,7 +89,7 @@ namespace InterScOM.Areas.Admin.Controllers
                 }
 
             }
-            return View(nameof(Edit),user);
+            return View(nameof(Edit), user);
         }
 
         // GET: AccountController/Delete/5
@@ -118,6 +113,6 @@ namespace InterScOM.Areas.Admin.Controllers
             }
         }
 
-        
+
     }
 }

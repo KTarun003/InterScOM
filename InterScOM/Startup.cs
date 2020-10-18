@@ -1,19 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using InterScOM.Areas.Admin.Data;
 using InterScOM.Areas.Admin.Models;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.EntityFrameworkCore;
 using InterScOM.Data;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Threading.Tasks;
 
 namespace InterScOM
 {
@@ -58,8 +54,8 @@ namespace InterScOM
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-                var roleManager = serviceProvider.GetRequiredService<RoleManager<AppRole>>();
-                var userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
+                RoleManager<AppRole> roleManager = serviceProvider.GetRequiredService<RoleManager<AppRole>>();
+                UserManager<AppUser> userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
                 if (roleManager.FindByNameAsync("admin") == null &&
                     userManager.FindByEmailAsync("Test@admin.com") == null)
                 {
@@ -79,7 +75,7 @@ namespace InterScOM
 
             app.UseAuthentication();
             app.UseAuthorization();
-            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -95,8 +91,8 @@ namespace InterScOM
 
         private async Task SeedData(IServiceProvider serviceProvider)
         {
-            var roleManager = serviceProvider.GetRequiredService<RoleManager<AppRole>>();
-            var userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
+            RoleManager<AppRole> roleManager = serviceProvider.GetRequiredService<RoleManager<AppRole>>();
+            UserManager<AppUser> userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
             AppUser adminUser = new AppUser
             {
                 FirstName = "Test",

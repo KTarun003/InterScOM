@@ -1,13 +1,11 @@
-﻿using System;
+﻿using InterScOM.Areas.Admin.Models;
+using InterScOM.Data;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using InterScOM.Areas.Admin.Models;
-using InterScOM.Data;
-using Microsoft.AspNetCore.Authorization;
 
 namespace InterScOM.Areas.Staff.Controllers
 {
@@ -26,23 +24,23 @@ namespace InterScOM.Areas.Staff.Controllers
         public async Task<IActionResult> Index(int? id)
         {
             List<Fee> list = new List<Fee>();
-            foreach (var item in _context.Fee)
+            foreach (Fee item in _context.Fee)
             {
                 if (item.FeeStatus.Equals("Due"))
                 {
                     list.Add(item);
                 }
             }
-            foreach (var item in list)
+            foreach (Fee item in list)
             {
-                item.Application =await _context.Application.FindAsync(item.ApplicationId);
+                item.Application = await _context.Application.FindAsync(item.ApplicationId);
             }
             if (id == null)
             {
                 return View(list);
             }
             List<Fee> filteredList = new List<Fee>();
-            foreach (var item in list)
+            foreach (Fee item in list)
             {
                 if (item.ApplicationId == id)
                 {
@@ -60,7 +58,7 @@ namespace InterScOM.Areas.Staff.Controllers
                 return NotFound();
             }
 
-            var fee = await _context.Fee.FindAsync(id);
+            Fee fee = await _context.Fee.FindAsync(id);
             fee.Application = await _context.Application.FindAsync(fee.ApplicationId);
             return View(fee);
         }
