@@ -1,4 +1,5 @@
-﻿using InterScOM.Areas.Forum.Models;
+﻿using System.Linq;
+using InterScOM.Areas.Forum.Models;
 using InterScOM.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
