@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using InterScOM.Areas.Admin.Models;
-using InterScOM.Areas.Staff.Controllers;
+﻿using InterScOM.Areas.Admin.Models;
+using InterScOM.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using InterScOM.Models;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Server.HttpSys;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace InterScOM.Controllers
 {
@@ -32,7 +26,7 @@ namespace InterScOM.Controllers
             return View();
         }
 
-        [HttpPost,ActionName("Login")]
+        [HttpPost, ActionName("Login")]
         public async Task<IActionResult> Login([Bind("AppUser,Password")] LogIn logIn)
         {
             if (ModelState.IsValid)
@@ -40,18 +34,18 @@ namespace InterScOM.Controllers
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 await _signInManager.SignOutAsync();
-                var user = await _userManager.FindByEmailAsync(logIn.AppUser.Email);
-                var result = await _signInManager.PasswordSignInAsync(user.UserName, logIn.Password, logIn.RememberMe, false);
+                AppUser user = await _userManager.FindByEmailAsync(logIn.AppUser.Email);
+                Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(user.UserName, logIn.Password, logIn.RememberMe, false);
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    if (await _userManager.IsInRoleAsync(user,"admin"))
+                    if (await _userManager.IsInRoleAsync(user, "admin"))
                     {
-                        return RedirectToAction(nameof(Index),"AdminStats", new { area = "Admin" });
+                        return RedirectToAction(nameof(Index), "AdminStats", new { area = "Admin" });
                     }
                     if (await _userManager.IsInRoleAsync(user, "staff"))
                     {
-                        return RedirectToAction("Dashboard", "Applications" , new { area = "Staff" });
+                        return RedirectToAction("Dashboard", "Applications", new { area = "Staff" });
                     }
 
                     return RedirectToAction(nameof(Index));

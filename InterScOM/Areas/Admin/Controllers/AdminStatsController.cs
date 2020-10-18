@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using InterScOM.Areas.Admin.Models;
+using InterScOM.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using InterScOM.Data;
-using Microsoft.EntityFrameworkCore;
-using InterScOM.Areas.Admin.Models;
 
 namespace InterScOM.Areas.Admin.Controllers
 {
@@ -25,10 +23,10 @@ namespace InterScOM.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var Orders = await _context.VendorOrders.ToListAsync();
-            var Vendors = await _context.Vendor.ToListAsync();
-            var Supplies = await _context.Supplies.ToListAsync();
-            var Fees = await _context.Fee.ToListAsync();
+            System.Collections.Generic.List<VendorOrders> Orders = await _context.VendorOrders.ToListAsync();
+            System.Collections.Generic.List<Vendor> Vendors = await _context.Vendor.ToListAsync();
+            System.Collections.Generic.List<Supplies> Supplies = await _context.Supplies.ToListAsync();
+            System.Collections.Generic.List<Fee> Fees = await _context.Fee.ToListAsync();
 
             AdminStats admstats = new AdminStats
             {
@@ -37,24 +35,24 @@ namespace InterScOM.Areas.Admin.Controllers
                 TotalFees = Fees.Count(),
                 Totalsupplies = Supplies.Count()
             };
-            foreach(var order in Orders)
+            foreach (VendorOrders order in Orders)
             {
                 if (order.Status.Equals("Placed"))
                 {
                     admstats.OrdersPlaced++;
                 }
-                else if(order.Status.Equals("Received"))
+                else if (order.Status.Equals("Received"))
                 {
                     admstats.OrdersReceived++;
                 }
-                else if(order.Status.Equals("Shipped") && admstats.OrdersShipping.Count <= 5)
+                else if (order.Status.Equals("Shipped") && admstats.OrdersShipping.Count <= 5)
                 {
                     admstats.OrdersShipping.Add(order);
                 }
             }
-            
-            
-            
+
+
+
             return View(admstats);
         }
     }

@@ -1,5 +1,3 @@
-using System;
-
 namespace InterScOM.Models
 {
     public class ErrorViewModel

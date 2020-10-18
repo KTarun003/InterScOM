@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using InterScOM.Areas.Admin.Models;
+﻿using InterScOM.Areas.Admin.Models;
 using InterScOM.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace InterScOM.Areas.Forum.Controllers
 {
@@ -30,7 +28,7 @@ namespace InterScOM.Areas.Forum.Controllers
         {
             AppUser user = await _userMgr.FindByNameAsync(name);
             List<Fee> list = await _context.Fee.ToListAsync();
-            foreach (var item in list)
+            foreach (Fee item in list)
             {
                 if (item.ApplicationId == user.AppId)
                 {
@@ -40,7 +38,7 @@ namespace InterScOM.Areas.Forum.Controllers
                         return View(item);
                     }
                 }
-                
+
             }
 
             return NotFound();
@@ -78,9 +76,9 @@ namespace InterScOM.Areas.Forum.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index","Home",new {area=""});
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
-            return View(nameof(Index),fee);
+            return View(nameof(Index), fee);
         }
 
         private bool FeeExists(int id)

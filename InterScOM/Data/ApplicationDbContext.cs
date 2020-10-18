@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
+﻿using InterScOM.Areas.Admin.Models;
 using InterScOM.Areas.Forum.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using InterScOM.Areas.Admin.Models;
 using InterScOM.Areas.Staff.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace InterScOM.Data
 {
@@ -26,9 +21,9 @@ namespace InterScOM.Data
         public DbSet<Fee> Fee { get; set; }
 
         public DbSet<Application> Application { get; set; }
-        
+
         public DbSet<VendorOrders> VendorOrders { get; set; }
-        
+
         public DbSet<Vendor> Vendor { get; set; }
     }
 }

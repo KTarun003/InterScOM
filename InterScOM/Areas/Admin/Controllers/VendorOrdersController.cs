@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using InterScOM.Areas.Admin.Models;
+using InterScOM.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using InterScOM.Areas.Admin.Models;
-using InterScOM.Data;
-using Microsoft.AspNetCore.Authorization;
 
 namespace InterScOM.Areas.Admin.Controllers
 {
@@ -25,15 +21,15 @@ namespace InterScOM.Areas.Admin.Controllers
         // GET: Admin/VendorOrders
         public async Task<IActionResult> Index()
         {
-            var vendors = await _context.Vendor.ToListAsync();
-            var vendororders = await _context.VendorOrders.ToListAsync();
+            System.Collections.Generic.List<Vendor> vendors = await _context.Vendor.ToListAsync();
+            System.Collections.Generic.List<VendorOrders> vendororders = await _context.VendorOrders.ToListAsync();
 
-            foreach(var vendord in vendororders)
+            foreach (VendorOrders vendord in vendororders)
             {
-                string vendname = vendord.VendorName;   
+                string vendname = vendord.VendorName;
 
                 // checking if vend name in orders exists in vendor list
-                if (! vendors.Exists(vend => vend.VendorName == vendname))
+                if (!vendors.Exists(vend => vend.VendorName == vendname))
                 {
                     vendord.VendorId = 0;
                 }
@@ -55,7 +51,7 @@ namespace InterScOM.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var vendorOrders = await _context.VendorOrders
+            VendorOrders vendorOrders = await _context.VendorOrders
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (vendorOrders == null)
             {
@@ -95,7 +91,7 @@ namespace InterScOM.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var vendorOrders = await _context.VendorOrders.FindAsync(id);
+            VendorOrders vendorOrders = await _context.VendorOrders.FindAsync(id);
             if (vendorOrders == null)
             {
                 return NotFound();
@@ -146,7 +142,7 @@ namespace InterScOM.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var vendorOrders = await _context.VendorOrders
+            VendorOrders vendorOrders = await _context.VendorOrders
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (vendorOrders == null)
             {
@@ -161,7 +157,7 @@ namespace InterScOM.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var vendorOrders = await _context.VendorOrders.FindAsync(id);
+            VendorOrders vendorOrders = await _context.VendorOrders.FindAsync(id);
             _context.VendorOrders.Remove(vendorOrders);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

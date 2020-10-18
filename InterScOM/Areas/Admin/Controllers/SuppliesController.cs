@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using InterScOM.Areas.Admin.Models;
+﻿using InterScOM.Areas.Admin.Models;
 using InterScOM.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace InterScOM.Areas.Admin.Controllers
 {
@@ -36,7 +33,7 @@ namespace InterScOM.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var supplies = await _context.Supplies
+            Supplies supplies = await _context.Supplies
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (supplies == null)
             {
@@ -76,7 +73,7 @@ namespace InterScOM.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var supplies = await _context.Supplies.FindAsync(id);
+            Supplies supplies = await _context.Supplies.FindAsync(id);
             if (supplies == null)
             {
                 return NotFound();
@@ -127,7 +124,7 @@ namespace InterScOM.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var supplies = await _context.Supplies
+            Supplies supplies = await _context.Supplies
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (supplies == null)
             {
@@ -142,7 +139,7 @@ namespace InterScOM.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var supplies = await _context.Supplies.FindAsync(id);
+            Supplies supplies = await _context.Supplies.FindAsync(id);
             _context.Supplies.Remove(supplies);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
