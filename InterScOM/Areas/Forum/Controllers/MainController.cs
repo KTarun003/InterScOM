@@ -96,12 +96,12 @@ namespace InterScOM.Areas.Forum.Controllers
             if (type.Equals("Answer"))
             {
                 Answer answer = await _context.Answers.FindAsync(id);
-                answer.DownVotes++;
+                answer.UpVotes++;
                 _context.Answers.Update(answer);
             }
             else
             {
-                query.DownVotes++;
+                query.UpVotes++;
                 _context.Queries.Update(query);
             }
             await _context.SaveChangesAsync();
