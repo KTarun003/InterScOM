@@ -29,7 +29,7 @@ jobs:
     # Email Linked to your Heroku Account
             email: tarunreddykreddy@gmail.com
     # Your Heroku API Key
-            api_key: 9d56e7ca-b6b5-4b24-b094-1e2ed3dce9d3
+            api_key: cefe90a8-07b6-4b21-a99b-c7c64168b468
     # Your Heroku App Name
             app_name: interscom
     # Dokerfile path
