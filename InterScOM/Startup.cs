@@ -143,6 +143,9 @@ namespace InterScOM
             await roleManager.CreateAsync(adminRole);
             await roleManager.CreateAsync(staffRole);
             await roleManager.CreateAsync(parentRole);
+            await userManager.AddToRoleAsync(adminUser, "admin");
+            await userManager.AddToRoleAsync(staffUser, "staff");
+            await userManager.AddToRoleAsync(parentUser, "parent");
         }
     }
 }
