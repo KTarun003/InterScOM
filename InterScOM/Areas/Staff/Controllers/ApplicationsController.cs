@@ -18,6 +18,7 @@ namespace InterScOM.Areas.Staff.Controllers
         private readonly ApplicationDbContext _context;
 
         private readonly UserManager<AppUser> _userMgr;
+
         public ApplicationsController(ApplicationDbContext context, UserManager<AppUser> userMgr)
         {
             _context = context;
@@ -226,12 +227,14 @@ namespace InterScOM.Areas.Staff.Controllers
                 };
                 Fee fee = new Fee
                 {
+                    ApplicationId = application.Id,
                     ParentName = application.FathersName,
                     FeeStatus = "Due"
                 };
                 await _context.Fee.AddAsync(fee);
                 await _context.SaveChangesAsync();
                 await _userMgr.CreateAsync(parent, "School@123");
+                await _userMgr.AddToRoleAsync(parent, "parent");
             }
             catch (DbUpdateConcurrencyException)
             {

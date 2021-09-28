@@ -27,7 +27,7 @@ namespace InterScOM
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL") ?? "postgres://kenibfxgribjsc:762e838593189ad7c8e8bd28d4e090759778816b04c1904293fc324d57aa9762@ec2-54-78-36-245.eu-west-1.compute.amazonaws.com:5432/d7ea2olulqjlpb";
+            var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
             var databaseUri = new Uri(databaseUrl);
             var userInfo = databaseUri.UserInfo.Split(':');
 

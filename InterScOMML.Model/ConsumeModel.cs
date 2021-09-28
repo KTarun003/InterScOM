@@ -23,7 +23,7 @@ namespace InterScOMML.Model
             MLContext mlContext = new MLContext();
 
             // Load model & create prediction engine
-            string modelPath = @"C:\Users\Tarun\AppData\Local\Temp\MLVSTools\InterScOMML\InterScOMML.Model\MLModel.zip";
+            string modelPath = @"C:\Coding\C#\InterScOM\InterScOMML.Model\MLModel.zip";
             ITransformer mlModel = mlContext.Model.Load(modelPath, out DataViewSchema modelInputSchema);
             PredictionEngine<ModelInput, ModelOutput> predEngine = mlContext.Model.CreatePredictionEngine<ModelInput, ModelOutput>(mlModel);
 
