@@ -3,6 +3,8 @@
 project.lock.json
 .DS_Store
 *.pyc
+*.log
+.vs
 nupkg/
 
 # Build results

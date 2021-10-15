@@ -1,0 +1,83 @@
+﻿@model Domain.VendorOrders
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>VendorOrders</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="VendorId" class="control-label"></label>
+                <input asp-for="VendorId" class="form-control" />
+                <span asp-validation-for="VendorId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VendorName" class="control-label"></label>
+                <input asp-for="VendorName" class="form-control" />
+                <span asp-validation-for="VendorName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderName" class="control-label"></label>
+                <input asp-for="OrderName" class="form-control" />
+                <span asp-validation-for="OrderName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderRefNumber" class="control-label"></label>
+                <input asp-for="OrderRefNumber" class="form-control" />
+                <span asp-validation-for="OrderRefNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderClass" class="control-label"></label>
+                <select asp-for="OrderClass" class="form-control">
+                    <option value="Books">Books</option>
+                    <option value="Stationary">Stationary</option>
+                    <option value="Software">Software</option>
+                    <option value="Furniture">Furniture</option>
+                    <option value="Hardware">Hardware</option>
+                </select>
+                <span asp-validation-for="OrderClass" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DatePlaced" class="control-label"></label>
+                <input asp-for="DatePlaced" class="form-control" />
+                <span asp-validation-for="DatePlaced" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateReceived" class="control-label"></label>
+                <input asp-for="DateReceived" class="form-control" />
+                <span asp-validation-for="DateReceived" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quantity" class="control-label"></label>
+                <input asp-for="Quantity" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <select asp-for="Status" class="form-control">
+                    <option value="Placed">Placed</option>
+                    <option value="Shipped">Shipped</option>
+                    <option value="Received">Received</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
