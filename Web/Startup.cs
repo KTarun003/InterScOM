@@ -25,26 +25,12 @@ namespace Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
-            var databaseUri = new Uri(databaseUrl);
-            var userInfo = databaseUri.UserInfo.Split(':');
-
-            var builder = new NpgsqlConnectionStringBuilder
-            {
-                Host = databaseUri.Host,
-                Port = databaseUri.Port,
-                Username = userInfo[0],
-                Password = userInfo[1],
-                Database = databaseUri.LocalPath.TrimStart('/'),
-                SslMode = SslMode.Require,
-                TrustServerCertificate = true
-            };
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(builder.ConnectionString));
+                options.UseNpgsql(GetConnectionString()));
             services.AddIdentity<AppUser, AppRole>(options => options.User.RequireUniqueEmail = true)
                 .AddEntityFrameworkStores<IdentityContext>();
             services.AddDbContext<IdentityContext>(options =>
-                options.UseNpgsql(builder.ConnectionString));
+                options.UseNpgsql(GetConnectionString()));
             services.AddControllersWithViews();
             services.AddRazorPages();
 
@@ -94,6 +80,26 @@ namespace Web
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+        }
+
+        private string GetConnectionString()
+        {
+            var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+            var databaseUri = new Uri(databaseUrl);
+            var userInfo = databaseUri.UserInfo.Split(':');
+
+            var builder = new NpgsqlConnectionStringBuilder
+            {
+                Host = databaseUri.Host,
+                Port = databaseUri.Port,
+                Username = userInfo[0],
+                Password = userInfo[1],
+                Database = databaseUri.LocalPath.TrimStart('/'),
+                SslMode = SslMode.Require,
+                TrustServerCertificate = true
+            };
+
+            return builder.ConnectionString;
         }
 
         private async Task SeedData(IServiceProvider serviceProvider)

@@ -61,10 +61,11 @@ namespace Web.Controllers
             return View();
         }
 
+        [HttpPost, ActionName("LogOut")]
         public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();
-            return View(nameof(Index));
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Privacy()
