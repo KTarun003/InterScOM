@@ -1,12 +1,12 @@
-﻿using InterScOM.Areas.Admin.Models;
-using InterScOM.Models;
+﻿using System.Diagnostics;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Diagnostics;
-using System.Threading.Tasks;
+using Web.Areas.Admin.Models;
+using Web.Models;
 
-namespace InterScOM.Controllers
+namespace Web.Controllers
 {
     public class HomeController : Controller
     {

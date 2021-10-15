@@ -1,14 +1,14 @@
-﻿using InterScOM.Areas.Admin.Models;
-using InterScOM.Data;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Web.Areas.Admin.Models;
+using Web.Data;
 
-namespace InterScOM.Areas.Forum.Controllers
+namespace Web.Areas.Forum.Controllers
 {
     [Authorize(Roles = "parent"), Area("Forum")]
     public class FeesController : Controller

@@ -1,6 +1,5 @@
-using InterScOM.Areas.Admin.Data;
-using InterScOM.Areas.Admin.Models;
-using InterScOM.Data;
+using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -8,12 +7,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using Npgsql;
+using Web.Areas.Admin.Data;
+using Web.Areas.Admin.Models;
+using Web.Data;
 
-namespace InterScOM
+namespace Web
 {
     public class Startup
     {

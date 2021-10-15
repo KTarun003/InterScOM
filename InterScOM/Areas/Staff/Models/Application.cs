@@ -1,9 +1,9 @@
-﻿using InterScOM.Areas.Admin.Models;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Web.Areas.Admin.Models;
 
-namespace InterScOM.Areas.Staff.Models
+namespace Web.Areas.Staff.Models
 {
     public class Application
     {

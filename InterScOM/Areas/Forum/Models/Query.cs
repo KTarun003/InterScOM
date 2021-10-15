@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace InterScOM.Areas.Forum.Models
+namespace Web.Areas.Forum.Models
 {
     public class Query
     {

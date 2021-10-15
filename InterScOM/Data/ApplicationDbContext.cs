@@ -1,9 +1,9 @@
-﻿using InterScOM.Areas.Admin.Models;
-using InterScOM.Areas.Forum.Models;
-using InterScOM.Areas.Staff.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Web.Areas.Admin.Models;
+using Web.Areas.Forum.Models;
+using Web.Areas.Staff.Models;
 
-namespace InterScOM.Data
+namespace Web.Data
 {
     public class ApplicationDbContext : DbContext
     {
