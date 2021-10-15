@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace InterScOM.Areas.Admin.Models
+namespace Web.Areas.Admin.Models
 {
     public class AppUser : IdentityUser<int>
     {

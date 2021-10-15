@@ -2,7 +2,7 @@
 
 using Microsoft.ML.Data;
 
-namespace InterScOMML.Model
+namespace FeesPredictorModel
 {
     public class ModelInput
     {

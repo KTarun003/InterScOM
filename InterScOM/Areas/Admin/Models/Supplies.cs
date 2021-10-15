@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace InterScOM.Areas.Admin.Models
+namespace Web.Areas.Admin.Models
 {
     public class Supplies
     {

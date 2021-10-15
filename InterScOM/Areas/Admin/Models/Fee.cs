@@ -1,7 +1,7 @@
-﻿using InterScOM.Areas.Staff.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using Web.Areas.Staff.Models;
 
-namespace InterScOM.Areas.Admin.Models
+namespace Web.Areas.Admin.Models
 {
     public class Fee
     {

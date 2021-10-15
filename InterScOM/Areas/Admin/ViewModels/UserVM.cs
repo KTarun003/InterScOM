@@ -1,6 +1,6 @@
-﻿using InterScOM.Areas.Admin.Models;
+﻿using Web.Areas.Admin.Models;
 
-namespace InterScOM.Areas.Admin
+namespace Web.Areas.Admin.ViewModels
 {
     public class UserVm
     {

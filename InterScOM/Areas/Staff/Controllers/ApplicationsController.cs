@@ -1,15 +1,15 @@
-﻿using InterScOM.Areas.Admin.Models;
-using InterScOM.Areas.Staff.Models;
-using InterScOM.Data;
-using InterScOMML.Model;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using FeesPredictorModel;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
+using Web.Areas.Admin.Models;
+using Web.Areas.Staff.Models;
+using Web.Data;
 
-namespace InterScOM.Areas.Staff.Controllers
+namespace Web.Areas.Staff.Controllers
 {
     //[Authorize(Roles = "staff")]
     [Area("Staff")]

@@ -1,12 +1,13 @@
-﻿using InterScOM.Areas.Admin.Models;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using System.Threading.Tasks;
+using Web.Areas.Admin.Models;
+using Web.Areas.Admin.ViewModels;
 
-namespace InterScOM.Areas.Admin.Controllers
+namespace Web.Areas.Admin.Controllers
 {
     [Authorize(Roles = "admin")]
     [Area("Admin")]
