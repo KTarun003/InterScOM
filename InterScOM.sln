@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "InterScOM\Web.csproj", "{A353DF8F-8385-47B4-B3E4-974027C4155A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{A353DF8F-8385-47B4-B3E4-974027C4155A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FeesPredictorModel", "InterScOMML.Model\FeesPredictorModel.csproj", "{78AD2339-752E-47B2-B483-C2FF1CADAB29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FeesPredictorModel", "FeesPredictorModel\FeesPredictorModel.csproj", "{78AD2339-752E-47B2-B483-C2FF1CADAB29}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{158AB35D-C3BB-43EA-8917-D9DE299D9305}"
 EndProject

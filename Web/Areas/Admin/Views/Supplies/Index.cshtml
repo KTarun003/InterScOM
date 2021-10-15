@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Domain.Supplies>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-10 text-center font-weight-bold">
+            <h1>SUPPLY MANAGEMENT</h1>
+        </div>
+        <div class="col-2">
+            <a asp-action="Create" class="text-right btn-success p-2 btn">Create New</a>
+        </div>
+    </div>
+</div>
+
+<br />
+<table class="table">
+    <thead style="background-color: #BBADFF;">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Itemname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VendorId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemClass)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemQuantity)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody style="background-color: #DAB6FC;">
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Itemname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VendorId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemClass)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemQuantity)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-dark btn-sm mr-2">Edit</a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-dark btn-sm mr-2">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-dark btn-sm">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
