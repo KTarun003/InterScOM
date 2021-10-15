@@ -2,4 +2,4 @@ build:
   docker:
     web: Dockerfile
 run:
-  web: ASPNETCORE_URLS=http://*:$PORT dotnet InterScOM.dll
+  web: ASPNETCORE_URLS=http://*:$PORT dotnet Web.dll

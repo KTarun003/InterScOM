@@ -1,0 +1,74 @@
+﻿@model Domain.Query
+
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div>
+    <div style="padding-bottom: 15px">
+        <a class="btn btn-dark text-white" asp-action="Index">Back to List</a>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            Topic : @Model.Topic
+        </div>
+        <div class="card-body">
+            <p class="card-text">@Model.Question</p>
+        </div>
+        <div class="card-footer form-inline">
+            <form asp-action="UpVote" method="get">
+                <input asp-for="Id" type="hidden" />
+                <input name="type" value="Query" type="hidden" />
+                <label class="form-control">@Model.UpVotes</label>
+                <button class="btn btn-success"> 👍 </button>
+            </form>
+            <form asp-action="DownVote" method="get">
+                <label class="form-control">@Model.DownVotes</label>
+                <input name="type" value="Query" type="hidden" />
+                <input asp-for="Id" type="hidden" />
+                <button class="btn btn-danger"> 👎 </button>
+            </form>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <h4>Answers</h4>
+        </div>
+        <div class="col-md-4">
+            <a class="btn btn-success" asp-action="Create" asp-route-id="@Model.Id">+ Add Answer</a>
+        </div>
+    </div>
+    <hr />
+    <ul style="list-style-type:none;">
+        @foreach (var answer in Model.Answers)
+        {
+            <li  style="padding: 10px">
+                <div class="card">
+                    <div class="card-header">
+                        UserName : @Html.DisplayFor(modelItem => answer.UserName)
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">@Html.DisplayFor(modelItem => answer.ThreadAnswer)</p>
+                    </div>
+                    <div class="card-footer form-inline">
+                        <form asp-action="UpVote" method="get">
+                            <input asp-for="Id" type="hidden" />
+                            <input name="type" value="Answer" type="hidden" />
+                            <label class="form-control">@Html.DisplayFor(modelItem => answer.UpVotes)</label>
+                            <button class="btn btn-success"> 👍 </button>
+                        </form>
+                        <form asp-action="DownVote" method="get">
+                            <label class="form-control">@Html.DisplayFor(modelItem => answer.DownVotes)</label>
+                            <input name="type" value="Answer" type="hidden" />
+                            <input asp-for="Id" type="hidden" />
+                            <button class="btn btn-danger"> 👎 </button>
+                        </form>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+</div>
+

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Domain.Fee>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-6 font-weight-bold text-center">
+            <h2>FEE MANAGEMENT</h2>
+        </div>
+        <form asp-action="Index" method="get" class="form-inline">
+            <div>
+                <input type="number" name="id" id="id"/>
+            </div>
+            <div >
+                <button type="submit" class="btn btn-info">Search</button>
+            </div>
+        </form>
+        
+    </div>
+</div>
+
+<br />
+<table class="table">
+    <thead style="background-color: #BBADFF;">
+        <tr>
+            <th>
+                Admission Number
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Application.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ParentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FeeStatus)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody style="background-color: #DAB6FC;">
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ApplicationId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Application.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ParentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FeeStatus)
+            </td>
+            <td>
+                <a asp-action="Collect" asp-route-id="@item.Id" class="btn btn-outline-dark btn-sm mr-2">Collect</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
