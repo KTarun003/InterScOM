@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace InterScOM.Migrations.Identity
+namespace Web.Migrations.Identity
 {
     public partial class InitialDb : Migration
     {

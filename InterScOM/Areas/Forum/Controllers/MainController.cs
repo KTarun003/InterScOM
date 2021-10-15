@@ -1,11 +1,11 @@
 ﻿using System.Linq;
-using InterScOM.Areas.Forum.Models;
-using InterScOM.Data;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
+using Web.Areas.Forum.Models;
+using Web.Data;
 
-namespace InterScOM.Areas.Forum.Controllers
+namespace Web.Areas.Forum.Controllers
 {
     [Area("Forum")]
     public class MainController : Controller

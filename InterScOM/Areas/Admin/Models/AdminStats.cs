@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace InterScOM.Areas.Admin.Models
+namespace Web.Areas.Admin.Models
 {
     public class AdminStats
     {

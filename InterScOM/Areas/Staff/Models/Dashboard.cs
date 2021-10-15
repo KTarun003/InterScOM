@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace InterScOM.Areas.Staff.Models
+namespace Web.Areas.Staff.Models
 {
     public class Dashboard
     {

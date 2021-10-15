@@ -1,6 +1,6 @@
-﻿using InterScOM.Areas.Admin.Models;
+﻿using Web.Areas.Admin.Models;
 
-namespace InterScOM.Models
+namespace Web.Models
 {
     public class LogIn
     {

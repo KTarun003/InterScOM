@@ -1,8 +1,8 @@
-﻿using InterScOM.Areas.Admin.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Web.Areas.Admin.Models;
 
-namespace InterScOM.Areas.Admin.Data
+namespace Web.Areas.Admin.Data
 {
     public class IdentityContext : IdentityDbContext<AppUser, AppRole, int>
     {
