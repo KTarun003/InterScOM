@@ -9,7 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
+using Npgsql;
 
 namespace InterScOM
 {
@@ -25,14 +27,26 @@ namespace InterScOM
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+            var databaseUri = new Uri(databaseUrl);
+            var userInfo = databaseUri.UserInfo.Split(':');
+
+            var builder = new NpgsqlConnectionStringBuilder
+            {
+                Host = databaseUri.Host,
+                Port = databaseUri.Port,
+                Username = userInfo[0],
+                Password = userInfo[1],
+                Database = databaseUri.LocalPath.TrimStart('/'),
+                SslMode = SslMode.Require,
+                TrustServerCertificate = true
+            };
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("AwsRds")));
+                options.UseNpgsql(builder.ConnectionString));
             services.AddIdentity<AppUser, AppRole>(options => options.User.RequireUniqueEmail = true)
                 .AddEntityFrameworkStores<IdentityContext>();
             services.AddDbContext<IdentityContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("AwsRds")));
+                options.UseNpgsql(builder.ConnectionString));
             services.AddControllersWithViews();
             services.AddRazorPages();
 
@@ -54,13 +68,6 @@ namespace InterScOM
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-                RoleManager<AppRole> roleManager = serviceProvider.GetRequiredService<RoleManager<AppRole>>();
-                UserManager<AppUser> userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
-                if (roleManager.FindByNameAsync("admin") == null &&
-                    userManager.FindByEmailAsync("Test@admin.com") == null)
-                {
-                    SeedData(serviceProvider).Wait();
-                }
             }
             else
             {
@@ -68,6 +75,9 @@ namespace InterScOM
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            SeedData(serviceProvider).Wait();
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -133,6 +143,9 @@ namespace InterScOM
             await roleManager.CreateAsync(adminRole);
             await roleManager.CreateAsync(staffRole);
             await roleManager.CreateAsync(parentRole);
+            await userManager.AddToRoleAsync(adminUser, "admin");
+            await userManager.AddToRoleAsync(staffUser, "staff");
+            await userManager.AddToRoleAsync(parentUser, "parent");
         }
     }
 }

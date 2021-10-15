@@ -37,6 +37,10 @@ namespace InterScOM.Areas.Forum.Controllers
                         item.Application = await _context.Application.FindAsync(item.ApplicationId);
                         return View(item);
                     }
+                    if (item.FeeStatus.Equals("Paid"))
+                    {
+                        return View("Paid");
+                    }
                 }
 
             }

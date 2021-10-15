@@ -1,4 +1,5 @@
-﻿using InterScOM.Areas.Forum.Models;
+﻿using System.Linq;
+using InterScOM.Areas.Forum.Models;
 using InterScOM.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,7 +20,9 @@ namespace InterScOM.Areas.Forum.Controllers
         // GET: Forum/Main
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Queries.ToListAsync());
+            var list = await _context.Queries.ToListAsync();
+            list = list.OrderByDescending(q => q.UpVotes).ToList();
+            return View(list);
         }
 
         // GET: Forum/Main/Details/5
@@ -40,10 +43,8 @@ namespace InterScOM.Areas.Forum.Controllers
                     query.Answers.Add(answer);
                 }
             }
-            if (query == null)
-            {
-                return NotFound();
-            }
+
+            query.Answers = query.Answers.OrderByDescending(a => a.UpVotes).ToList();
             return View(query);
         }
 

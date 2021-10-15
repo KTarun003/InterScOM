@@ -14,19 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20201016175600_AddedAppIdToFee.cs" />
-    <Compile Remove="Migrations\20201016175600_AddedAppIdToFee.Designer.cs" />
-    <Compile Remove="Migrations\20201016181908_AddedAppIdToFee.cs" />
-    <Compile Remove="Migrations\20201016181908_AddedAppIdToFee.Designer.cs" />
-    <Compile Remove="Migrations\20201016182304_AddedAppIdFKToFee.cs" />
-    <Compile Remove="Migrations\20201016182304_AddedAppIdFKToFee.Designer.cs" />
-    <Compile Remove="Migrations\20201017112306_AddedAppIdToUser.cs" />
-    <Compile Remove="Migrations\20201017112306_AddedAppIdToUser.Designer.cs" />
-    <Compile Remove="Migrations\Identity\20201012120400_AddedRole.cs" />
-    <Compile Remove="Migrations\Identity\20201012120400_AddedRole.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.8" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.8" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.8" />
@@ -35,6 +22,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.8" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.8" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
   </ItemGroup>
 
   <ItemGroup>

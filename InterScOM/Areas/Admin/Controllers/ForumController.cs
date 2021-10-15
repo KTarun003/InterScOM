@@ -22,7 +22,9 @@ namespace InterScOM.Areas.Admin.Controllers
         // GET: Admin/Forum
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Queries.ToListAsync());
+            var list = await _context.Queries.ToListAsync();
+            list = list.OrderByDescending(q => q.UpVotes).ToList();
+            return View(list);
         }
 
         // GET: Admin/Forum/Details/5
@@ -47,7 +49,7 @@ namespace InterScOM.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
+            query.Answers = query.Answers.OrderByDescending(a => a.UpVotes).ToList();
             return View(query);
         }
 
