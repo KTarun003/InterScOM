@@ -65,6 +65,7 @@ namespace Web.Controllers
         public async Task<IActionResult> LogOut()
         {
             await _signInManager.SignOutAsync();
+            _logger.LogInformation("User logged out.");
             return RedirectToAction(nameof(Index));
         }
 

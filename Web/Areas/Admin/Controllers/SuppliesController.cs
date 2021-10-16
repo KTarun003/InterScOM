@@ -22,7 +22,7 @@ namespace Web.Areas.Admin.Controllers
         // GET: Admin/Supplies
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Supplies.ToListAsync());
+            return View(await _context.Orders.ToListAsync());
         }
 
         // GET: Admin/Supplies/Details/5
@@ -33,14 +33,14 @@ namespace Web.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            Supplies supplies = await _context.Supplies
+            Order orders = await _context.Orders
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (supplies == null)
+            if (orders == null)
             {
                 return NotFound();
             }
 
-            return View(supplies);
+            return View(orders);
         }
 
         // GET: Admin/Supplies/Create
@@ -54,15 +54,15 @@ namespace Web.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Itemname,ItemClass,ItemQuantity")] Supplies supplies)
+        public async Task<IActionResult> Create([Bind("Id,Name,Type,ItemQuantity")] Order orders)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(supplies);
+                _context.Add(orders);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(supplies);
+            return View(orders);
         }
 
         // GET: Admin/Supplies/Edit/5
@@ -73,12 +73,12 @@ namespace Web.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            Supplies supplies = await _context.Supplies.FindAsync(id);
-            if (supplies == null)
+            Order orders = await _context.Orders.FindAsync(id);
+            if (orders == null)
             {
                 return NotFound();
             }
-            return View(supplies);
+            return View(orders);
         }
 
         // POST: Admin/Supplies/Edit/5
@@ -86,9 +86,9 @@ namespace Web.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Itemname,ItemClass,ItemQuantity")] Supplies supplies)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Itemname,ItemClass,ItemQuantity")] Order orders)
         {
-            if (id != supplies.Id)
+            if (id != orders.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace Web.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(supplies);
+                    _context.Update(orders);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SuppliesExists(supplies.Id))
+                    if (!SuppliesExists(orders.Id))
                     {
                         return NotFound();
                     }
@@ -113,7 +113,7 @@ namespace Web.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(supplies);
+            return View(orders);
         }
 
         // GET: Admin/Supplies/Delete/5
@@ -124,14 +124,14 @@ namespace Web.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            Supplies supplies = await _context.Supplies
+            Order orders = await _context.Orders
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (supplies == null)
+            if (orders == null)
             {
                 return NotFound();
             }
 
-            return View(supplies);
+            return View(orders);
         }
 
         // POST: Admin/Supplies/Delete/5
@@ -139,15 +139,15 @@ namespace Web.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            Supplies supplies = await _context.Supplies.FindAsync(id);
-            _context.Supplies.Remove(supplies);
+            Order orders = await _context.Orders.FindAsync(id);
+            _context.Orders.Remove(orders);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool SuppliesExists(int id)
         {
-            return _context.Supplies.Any(e => e.Id == id);
+            return _context.Orders.Any(e => e.Id == id);
         }
     }
 }

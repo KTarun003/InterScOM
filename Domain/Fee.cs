@@ -15,4 +15,10 @@ namespace Domain
 
         public Application Application { get; set; }
     }
+
+    public enum FeeStatus
+    {
+        Paid,
+        Pending
+    }
 }

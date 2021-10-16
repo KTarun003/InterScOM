@@ -23,23 +23,6 @@ namespace Web.Areas.Admin.Controllers
         {
             System.Collections.Generic.List<Vendor> vendors = await _context.Vendor.ToListAsync();
             System.Collections.Generic.List<VendorOrders> vendororders = await _context.VendorOrders.ToListAsync();
-
-            foreach (VendorOrders vendord in vendororders)
-            {
-                string vendname = vendord.VendorName;
-
-                // checking if vend name in orders exists in vendor list
-                if (!vendors.Exists(vend => vend.VendorName == vendname))
-                {
-                    vendord.VendorId = 0;
-                }
-                else
-                {
-                    Vendor Vendorobj = vendors.Find(vend => vend.VendorName == vendname);
-                    vendord.VendorId = Vendorobj.Id;
-                }
-            }
-
             return View(await _context.VendorOrders.ToListAsync());
         }
 
@@ -72,7 +55,7 @@ namespace Web.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,VendorId,VendorName,OrderName,OrderRefNumber,OrderClass,DatePlaced,DateReceived,Quantity,Status")] VendorOrders vendorOrders)
+        public async Task<IActionResult> Create([Bind("Id,VendorId,OrderId,DatePlaced,DateReceived,Quantity,Status")] VendorOrders vendorOrders)
         {
             if (ModelState.IsValid)
             {
@@ -104,7 +87,7 @@ namespace Web.Areas.Admin.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,VendorId,VendorName,OrderName,OrderRefNumber,OrderClass,DatePlaced,DateReceived,Quantity,Status")] VendorOrders vendorOrders)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,VendorId,OrderId,DatePlaced,DateReceived,Quantity,Status")] VendorOrders vendorOrders)
         {
             if (id != vendorOrders.Id)
             {

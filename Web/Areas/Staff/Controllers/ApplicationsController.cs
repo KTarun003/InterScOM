@@ -33,15 +33,15 @@ namespace Web.Areas.Staff.Controllers
             };
             foreach (Application application in applications)
             {
-                if (application.Status.Equals("Accepted"))
+                if (application.Status.Equals(ApplicationStatus.Accepted.ToString()))
                 {
                     dashboard.Accepted++;
                 }
-                else if (application.Status.Equals("Rejected"))
+                else if (application.Status.Equals(ApplicationStatus.Rejected.ToString()))
                 {
                     dashboard.Rejected++;
                 }
-                else if (application.Status.Equals("Pending") && (dashboard.PendingApplications.Count <= 5))
+                else if (application.Status.Equals(ApplicationStatus.Pending.ToString()) && (dashboard.PendingApplications.Count <= 5))
                 {
                     dashboard.PendingApplications.Add(application);
                 }
@@ -89,7 +89,7 @@ namespace Web.Areas.Staff.Controllers
             if (ModelState.IsValid)
             {
                 application.ApplicationDate = DateTime.Now;
-                application.Status = "Pending";
+                application.Status = ApplicationStatus.Pending.ToString();
                 ModelInput input = new ModelInput
                 {
                     StudentId = application.Id,
@@ -214,7 +214,7 @@ namespace Web.Areas.Staff.Controllers
             Application application = await _context.Application.FindAsync(id);
             try
             {
-                application.Status = "Accepted";
+                application.Status = ApplicationStatus.Accepted.ToString();
                 _context.Update(application);
                 AppUser parent = new AppUser
                 {
@@ -278,7 +278,7 @@ namespace Web.Areas.Staff.Controllers
             Application application = await _context.Application.FindAsync(id);
             try
             {
-                application.Status = "Rejected";
+                application.Status = ApplicationStatus.Rejected.ToString();
                 _context.Update(application);
                 await _context.SaveChangesAsync();
             }

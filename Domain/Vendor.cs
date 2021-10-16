@@ -8,6 +8,7 @@ namespace Domain
         public int Id { get; set; }
 
         public string VendorName { get; set; }
-        public int Ordersplaced { get; set; }
+
+        public int OrdersPlaced { get; set; }
     }
 }

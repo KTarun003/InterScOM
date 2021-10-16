@@ -9,16 +9,24 @@ namespace Domain
         public int Id { get; set; }
 
         public int VendorId { get; set; }
-        public string VendorName { get; set; }
-        public string OrderName { get; set; }
-        public int OrderRefNumber { get; set; }
-        public string OrderClass { get; set; } //books stationary software furniture hardware
+
+        public int OrderId { get; set; }
+
         public DateTime DatePlaced { get; set; }
+
         public DateTime DateReceived { get; set; }
 
         public int Quantity { get; set; }
 
-
         public string Status { get; set; } // placed shipping received
+
     }
+
+    public enum OrdersStatus
+    {
+        Placed,
+        Shipping,
+        Received
+    }
+
 }

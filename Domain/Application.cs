@@ -42,4 +42,11 @@ namespace Domain
 
         public Fee Fee { get; set; }
     }
+
+    public enum ApplicationStatus
+    {
+        Pending,
+        Accepted,
+        Rejected
+    }
 }

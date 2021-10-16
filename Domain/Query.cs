@@ -27,4 +27,11 @@ namespace Domain
 
         public int DownVotes { get; set; }
     }
+
+    public enum Topics
+    {
+        General,
+        Admission,
+        Fees
+    }
 }
