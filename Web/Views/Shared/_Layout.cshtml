@@ -8,21 +8,26 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <style>
         .navbar {
-            background-color: #95D9DA;
+            background: linear-gradient(to bottom, #ffccff 0%, #ff9999 100%);
             border-bottom-color: black;
         }
        
         .card-header {
-            background-color: #BBADFF;
+            background: #BBADFF;
         }
 
         .card-body {
-            background-color: #DAB6FC;
+            background: linear-gradient(to top left, #ff99cc 0%, #33ccff 100%);
+            ;
+        }
+
+        .footer {
+            background: linear-gradient(to bottom, #ffccff 0%, #ff9999 100%);
         }
 
     </style>
 </head>
-<body>
+<body style="background: linear-gradient(to bottom, #66ffff 0%, #ccffff 100%)">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3 pb-3">
             <div class="container">
@@ -39,7 +44,7 @@
                         </form>
                         <ul class="navbar-nav flex-grow-0">
                             <li class="nav-item">
-                                <a class="nav-link text-dark mr-3" asp-area="Admin" asp-controller="Account" asp-action="Edit" asp-route-name="@User.Identity.Name">Hello @User.Identity.Name</a>
+                                <a class="nav-link text-dark mr-3" asp-area="Admin" asp-controller="Account" asp-action="EditName" asp-route-name="@User.Identity.Name">Hello @User.Identity.Name</a>
                             </li>
                         </ul>
                         @if ((await AuthorizationService.AuthorizeAsync(User, "RequireAdminRole")).Succeeded)
@@ -135,13 +140,13 @@
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container" >
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted" >
         <div class="container">
             &copy; 2021 - InterScOM - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>

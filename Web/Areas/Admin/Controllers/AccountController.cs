@@ -50,9 +50,16 @@ namespace Web.Areas.Admin.Controllers
         }
 
         [Authorize(Roles = "admin,staff,parent")]
-        // GET: AccountController/Edit/5
+        public async Task<ActionResult> EditName(string name)
+        {
+            AppUser user = await _userMgr.FindByNameAsync(name);
+            return RedirectToAction(Edit(user.Email).ToString());
+        }
+
+        [Authorize(Roles = "admin,staff,parent")]
         public async Task<ActionResult> Edit(string email)
         {
+
             AppUser user = await _userMgr.FindByEmailAsync(email);
             if (user == null)
             {
@@ -106,6 +113,7 @@ namespace Web.Areas.Admin.Controllers
         {
             try
             {
+                //_userMgr.DeleteAsync(user);
                 return RedirectToAction(nameof(Index));
             }
             catch

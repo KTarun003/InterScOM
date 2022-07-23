@@ -26,11 +26,11 @@ namespace Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(GetConnectionString()));
+                options.UseInMemoryDatabase("InterScOMTest"));
             services.AddIdentity<AppUser, AppRole>(options => options.User.RequireUniqueEmail = true)
                 .AddEntityFrameworkStores<IdentityContext>();
             services.AddDbContext<IdentityContext>(options =>
-                options.UseNpgsql(GetConnectionString()));
+                options.UseInMemoryDatabase("InterScOMTest"));
             services.AddControllersWithViews();
             services.AddRazorPages();
 
@@ -106,6 +106,19 @@ namespace Web
         {
             RoleManager<AppRole> roleManager = serviceProvider.GetRequiredService<RoleManager<AppRole>>();
             UserManager<AppUser> userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
+            ApplicationDbContext context = serviceProvider.GetService<ApplicationDbContext>();
+            Query query = new Query
+            {
+                Topic = "General",
+                Question = "What are the Safety Steps taken in the School regarding Fire and other accidents?",
+                UserName = "Parent"
+            };
+            Answer answer = new Answer
+            {
+                UserName = "Admin",
+                QueryId = 1,
+                ThreadAnswer = "We have many well placed fire extinguishers, fire escapes and we conduct training and drills every year for all staff and students."
+            };
             AppUser adminUser = new AppUser
             {
                 FirstName = "Test",
@@ -143,6 +156,9 @@ namespace Web
             {
                 Name = "parent"
             };
+            await context.Queries.AddAsync(query);
+            await context.Answers.AddAsync(answer);
+            await context.SaveChangesAsync();
             await roleManager.CreateAsync(adminRole);
             await roleManager.CreateAsync(staffRole);
             await roleManager.CreateAsync(parentRole);

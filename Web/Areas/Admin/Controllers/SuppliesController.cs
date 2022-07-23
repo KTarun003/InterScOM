@@ -22,7 +22,7 @@ namespace Web.Areas.Admin.Controllers
         // GET: Admin/Supplies
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Orders.ToListAsync());
+            return View(await _context.Supplies.ToListAsync());
         }
 
         // GET: Admin/Supplies/Details/5
@@ -33,7 +33,7 @@ namespace Web.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            Order orders = await _context.Orders
+            Order orders = await _context.Supplies
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (orders == null)
             {
@@ -73,7 +73,7 @@ namespace Web.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            Order orders = await _context.Orders.FindAsync(id);
+            Order orders = await _context.Supplies.FindAsync(id);
             if (orders == null)
             {
                 return NotFound();
@@ -124,7 +124,7 @@ namespace Web.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            Order orders = await _context.Orders
+            Order orders = await _context.Supplies
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (orders == null)
             {
@@ -139,15 +139,15 @@ namespace Web.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            Order orders = await _context.Orders.FindAsync(id);
-            _context.Orders.Remove(orders);
+            Order orders = await _context.Supplies.FindAsync(id);
+            _context.Supplies.Remove(orders);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool SuppliesExists(int id)
         {
-            return _context.Orders.Any(e => e.Id == id);
+            return _context.Supplies.Any(e => e.Id == id);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Web.Areas.Admin.Controllers
         {
             System.Collections.Generic.List<VendorOrders> Orders = await _context.VendorOrders.ToListAsync();
             System.Collections.Generic.List<Vendor> Vendors = await _context.Vendor.ToListAsync();
-            System.Collections.Generic.List<Order> Supplies = await _context.Orders.ToListAsync();
+            System.Collections.Generic.List<Order> Supplies = await _context.Supplies.ToListAsync();
             System.Collections.Generic.List<Fee> Fees = await _context.Fee.ToListAsync();
 
             AdminStats admstats = new AdminStats

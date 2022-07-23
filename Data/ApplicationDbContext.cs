@@ -14,7 +14,7 @@ namespace Data
 
         public DbSet<Answer> Answers { get; set; }
 
-        public DbSet<Order> Orders { get; set; }
+        public DbSet<Order> Supplies { get; set; }
 
         public DbSet<Fee> Fee { get; set; }
 
