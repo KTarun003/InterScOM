@@ -45,7 +45,7 @@ namespace Web.Areas.Forum.Controllers
 
             }
 
-            return NotFound();
+            return View("NoDues");
         }
 
         // POST: Admin/Fees/Edit/5

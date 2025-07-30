@@ -6,28 +6,9 @@
     <title>@ViewData["Title"] - InterScOM</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <style>
-        .navbar {
-            background: linear-gradient(to bottom, #ffccff 0%, #ff9999 100%);
-            border-bottom-color: black;
-        }
-       
-        .card-header {
-            background: #BBADFF;
-        }
-
-        .card-body {
-            background: linear-gradient(to top left, #ff99cc 0%, #33ccff 100%);
-            ;
-        }
-
-        .footer {
-            background: linear-gradient(to bottom, #ffccff 0%, #ff9999 100%);
-        }
-
-    </style>
+    
 </head>
-<body style="background: linear-gradient(to bottom, #66ffff 0%, #ccffff 100%)">
+<body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3 pb-3">
             <div class="container">
@@ -148,7 +129,7 @@
 
     <footer class="border-top footer text-muted" >
         <div class="container">
-            &copy; 2021 - InterScOM - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; @(DateTime.Now.Year) - InterScOM - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
